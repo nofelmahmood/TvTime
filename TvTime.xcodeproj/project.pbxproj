@@ -11,15 +11,19 @@
 		3E57BA011E70163F004A4CD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57BA001E70163F004A4CD3 /* Assets.xcassets */; };
 		3E57BA041E70163F004A4CD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E57BA021E70163F004A4CD3 /* LaunchScreen.storyboard */; };
 		3E57BA101E7016FB004A4CD3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57BA0F1E7016FB004A4CD3 /* MainViewController.swift */; };
+		B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B1961EEFBC12401BDB4BBE4 /* Pods-TvTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.debug.xcconfig"; sourceTree = "<group>"; };
 		3E57B9F61E70163F004A4CD3 /* TvTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TvTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E57B9F91E70163F004A4CD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E57BA001E70163F004A4CD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E57BA031E70163F004A4CD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E57BA051E70163F004A4CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E57BA0F1E7016FB004A4CD3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ViewControllers/MainViewController.swift; sourceTree = "<group>"; };
+		8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TvTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,17 +31,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1249E6D2E174DCF63AAFEAFD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3E57B9ED1E70163F004A4CD3 = {
 			isa = PBXGroup;
 			children = (
 				3E57B9F81E70163F004A4CD3 /* TvTime */,
 				3E57B9F71E70163F004A4CD3 /* Products */,
+				7CE739C1C9FB698F91B4A138 /* Pods */,
+				1249E6D2E174DCF63AAFEAFD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +100,15 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		7CE739C1C9FB698F91B4A138 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3B1961EEFBC12401BDB4BBE4 /* Pods-TvTime.debug.xcconfig */,
+				B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -92,9 +116,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3E57BA081E70163F004A4CD3 /* Build configuration list for PBXNativeTarget "TvTime" */;
 			buildPhases = (
+				73F00813CE5991D8A54D8F1D /* [CP] Check Pods Manifest.lock */,
 				3E57B9F21E70163F004A4CD3 /* Sources */,
 				3E57B9F31E70163F004A4CD3 /* Frameworks */,
 				3E57B9F41E70163F004A4CD3 /* Resources */,
+				D7C08BA34832424FEFF5A21E /* [CP] Embed Pods Frameworks */,
+				ADB535C8B1CCACA65D7CA350 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -151,6 +178,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		73F00813CE5991D8A54D8F1D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ADB535C8B1CCACA65D7CA350 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TvTime/Pods-TvTime-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7C08BA34832424FEFF5A21E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TvTime/Pods-TvTime-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E57B9F21E70163F004A4CD3 /* Sources */ = {
@@ -269,6 +344,7 @@
 		};
 		3E57BA091E70163F004A4CD3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B1961EEFBC12401BDB4BBE4 /* Pods-TvTime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9BSYUAQ55P;
@@ -284,6 +360,7 @@
 		};
 		3E57BA0A1E70163F004A4CD3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9BSYUAQ55P;
