@@ -8,6 +8,8 @@ target 'TvTime' do
   # Pods for TvTime
       pod 'Alamofire', '~> 4.4'
       pod "PromiseKit", "~> 4.0"
-      pod 'Argo'
+      pod 'ObjectMapper', '~> 2.2'
+      pod 'AlamofireObjectMapper', '~> 4.0'
+      pod 'AlamofireImage', '~> 3.1'
 
 end
