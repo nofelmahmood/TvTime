@@ -18,10 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         let feedViewController = UINavigationController(rootViewController: FeedViewController())
-        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: nil, tag: 1)
+        let feedTabBarItem = UITabBarItem(title: "Feed", image: UIImage(named: "feed"), tag: 0)
+        feedViewController.tabBarItem = feedTabBarItem
         
         let scheduleViewController = UINavigationController(rootViewController: ScheduleViewController())
-        scheduleViewController.tabBarItem = UITabBarItem(title: "Schedule", image: nil, tag: 0)
+        let scheduleTabBarItem = UITabBarItem(title: "Schedule", image: UIImage(named: "schedule"), tag: 0)
+        scheduleViewController.tabBarItem = scheduleTabBarItem
         
         let favoritesViewController = UINavigationController(rootViewController: FavoritesViewController())
         let favoritesTabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "favorites"), tag: 2)
