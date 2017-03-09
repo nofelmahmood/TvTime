@@ -18,12 +18,27 @@ protocol DataSource {
 
 class FeedItemsDataSource: NSObject {
     
+    var segments = ["Popular", "Rated", "Today"]
     var items: [TvShow]?
     
-    func prepare() -> AnyPromise {
+    func prepare(forSegment segment: Int) -> AnyPromise {
         
         let promise = Promise<Any>(resolvers: { resolve, reject in
-            getPopularItems(page: 1).then(execute: { (result) -> Void in
+           
+            var itemsPromise = getPopularItems(page: 1)
+            
+            switch segment {
+            case 1:
+                itemsPromise = getRatedItems(page: 1)
+                break;
+            case 2:
+                itemsPromise = getTodayItems(page: 1)
+                break;
+            default:
+                    break;
+            }
+            
+            itemsPromise.then(execute: { (result) -> Void in
                 self.items = result as? [TvShow]
                 resolve(result!)
             }).catch(execute: { error in
@@ -36,7 +51,52 @@ class FeedItemsDataSource: NSObject {
     
     func getPopularItems(page: Int) -> AnyPromise {
         
-        let urlString = "https://api.themoviedb.org/3/tv/popular?api_key=\(API.key)&language=en-US&page=\(page)"
+        let urlString = "\(APIEndPoint.popular)?api_key=\(API.key)&language=en-US&page=\(page)"
+        let url = URL(string: urlString)!
+        
+        let promise = Promise<[TvShow]>(resolvers: { resolve, reject in
+            
+            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "results", completionHandler: { (response: DataResponse<[TvShow]>) in
+                
+                if response.result.isSuccess {
+                    resolve(response.result.value!)
+                    
+                } else {
+                    reject(response.error!)
+                }
+                
+            })
+        })
+        
+        return AnyPromise(promise)
+    }
+    
+    
+    func getRatedItems(page: Int) -> AnyPromise {
+        
+        let urlString = "\(APIEndPoint.rated)?api_key=\(API.key)&language=en-US&page=\(page)"
+        let url = URL(string: urlString)!
+        
+        let promise = Promise<[TvShow]>(resolvers: { resolve, reject in
+            
+            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "results", completionHandler: { (response: DataResponse<[TvShow]>) in
+                
+                if response.result.isSuccess {
+                    resolve(response.result.value!)
+                    
+                } else {
+                    reject(response.error!)
+                }
+                
+            })
+        })
+        
+        return AnyPromise(promise)
+    }
+    
+    func getTodayItems(page: Int) -> AnyPromise {
+        
+        let urlString = "\(APIEndPoint.today)?api_key=\(API.key)&language=en-US&page=\(page)"
         let url = URL(string: urlString)!
         
         let promise = Promise<[TvShow]>(resolvers: { resolve, reject in
@@ -68,14 +128,18 @@ extension FeedItemsDataSource: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ItemTableViewCell.self), for: indexPath) as! ItemTableViewCell
         
         let item = items![indexPath.row]
-        let thumbnailURL = "\(APIEndPoint.image)\(item.thumbnailURL!)"
-        print("Thumbnail URL String \(thumbnailURL)")
-        let url = URL(string: thumbnailURL)
-        let thumbnailRequest = URLRequest(url: url!)
-        
-        print("Thumbnail URL \(thumbnailURL)")
         
         cell.nameLabel.text = item.name
+        
+        guard let thumbnailURL = item.thumbnailURL else {
+            cell.itemImageView.image = nil
+            return cell
+        }
+        
+        let thumbnailFullURL = "\(APIEndPoint.image)\(thumbnailURL)"
+        let url = URL(string: thumbnailFullURL)
+        let thumbnailRequest = URLRequest(url: url!)
+        cell.itemImageView.image = nil
         cell.itemImageView.af_setImage(withURLRequest: thumbnailRequest)
         
         

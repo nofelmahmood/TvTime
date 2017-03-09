@@ -30,10 +30,12 @@ class FeedViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.black
         navigationController?.navigationBar.tintColor = Color.silver
         
-        let segmentedControl = UISegmentedControl(items: ["Popular", "Latest", "Today"])
+        let segmentedControl = UISegmentedControl(items: feedItemsDataSource.segments)
         segmentedControl.tintColor = Color.silver
         segmentedControl.selectedSegmentIndex = 0
         navigationItem.titleView = segmentedControl
+        
+        segmentedControl.addTarget(self, action: #selector(onFeedItemsSegmentedControlValueChange), for: .valueChanged)
         
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
@@ -50,15 +52,26 @@ class FeedViewController: UIViewController {
         
         tableView.dataSource = feedItemsDataSource
         
-        feedItemsDataSource.prepare().then(execute: { (result) -> Void in
-            self.tableView.reloadData()
-        })
+        feedItemsDataSource.prepare(forSegment: segmentedControl.selectedSegmentIndex)
+            .then(execute: { result in
+                self.tableView.reloadData()
+            })
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - User Interaction
+    
+    func onFeedItemsSegmentedControlValueChange(sender: UISegmentedControl) {
+        
+        feedItemsDataSource.prepare(forSegment: sender.selectedSegmentIndex)
+            .then(execute: { (result) -> Void in
+                self.tableView.reloadData()
+            })
     }
     
 
