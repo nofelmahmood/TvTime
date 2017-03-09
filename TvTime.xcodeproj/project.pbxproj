@@ -7,21 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E1C8F4E1E705C2D00832E33 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C8F4D1E705C2D00832E33 /* UIView+Constraints.swift */; };
 		3E57B9FA1E70163F004A4CD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57B9F91E70163F004A4CD3 /* AppDelegate.swift */; };
 		3E57BA011E70163F004A4CD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E57BA001E70163F004A4CD3 /* Assets.xcassets */; };
 		3E57BA041E70163F004A4CD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E57BA021E70163F004A4CD3 /* LaunchScreen.storyboard */; };
-		3E57BA101E7016FB004A4CD3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57BA0F1E7016FB004A4CD3 /* MainViewController.swift */; };
+		3E57BA121E7021F1004A4CD3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57BA111E7021F1004A4CD3 /* Constants.swift */; };
+		3E57FD931E70794D00F9BA8A /* TvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E57FD921E70794D00F9BA8A /* TvShow.swift */; };
+		3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */; };
+		3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */; };
+		3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1451E71591800C5AFA9 /* FeedViewController.swift */; };
+		3EACB1491E71591800C5AFA9 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1461E71591800C5AFA9 /* ItemTableViewCell.swift */; };
+		3EC214F91E71468200433E9D /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC214F81E71468200433E9D /* FavoritesViewController.swift */; };
 		B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B1961EEFBC12401BDB4BBE4 /* Pods-TvTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.debug.xcconfig"; sourceTree = "<group>"; };
+		3E1C8F4D1E705C2D00832E33 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Constraints.swift"; path = "Helpers/UIView+Constraints.swift"; sourceTree = "<group>"; };
 		3E57B9F61E70163F004A4CD3 /* TvTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TvTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E57B9F91E70163F004A4CD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E57BA001E70163F004A4CD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E57BA031E70163F004A4CD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E57BA051E70163F004A4CD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E57BA0F1E7016FB004A4CD3 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ViewControllers/MainViewController.swift; sourceTree = "<group>"; };
+		3E57BA111E7021F1004A4CD3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Helpers/Constants.swift; sourceTree = "<group>"; };
+		3E57FD921E70794D00F9BA8A /* TvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShow.swift; path = Models/TvShow.swift; sourceTree = "<group>"; };
+		3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleViewController.swift; path = ScheduleViewController/ScheduleViewController.swift; sourceTree = "<group>"; };
+		3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedItemsDataSource.swift; path = FeedViewController/FeedItemsDataSource.swift; sourceTree = "<group>"; };
+		3EACB1451E71591800C5AFA9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = FeedViewController/FeedViewController.swift; sourceTree = "<group>"; };
+		3EACB1461E71591800C5AFA9 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemTableViewCell.swift; path = FeedViewController/ItemTableViewCell.swift; sourceTree = "<group>"; };
+		3EC214F81E71468200433E9D /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesViewController.swift; path = FavoritesViewController/FavoritesViewController.swift; sourceTree = "<group>"; };
 		8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TvTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,7 +83,9 @@
 			children = (
 				3E57BA0E1E7016C7004A4CD3 /* Helpers */,
 				3E57BA0C1E7016B8004A4CD3 /* Models */,
-				3E57BA0B1E7016AC004A4CD3 /* ViewControllers */,
+				3EACB1411E71476700C5AFA9 /* ScheduleViewController */,
+				3EC214F61E71462E00433E9D /* FavoritesViewController */,
+				3E57BA131E7027AB004A4CD3 /* FeedViewController */,
 				3E57B9F91E70163F004A4CD3 /* AppDelegate.swift */,
 				3E57BA001E70163F004A4CD3 /* Assets.xcassets */,
 				3E57BA021E70163F004A4CD3 /* LaunchScreen.storyboard */,
@@ -78,17 +94,10 @@
 			path = TvTime;
 			sourceTree = "<group>";
 		};
-		3E57BA0B1E7016AC004A4CD3 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				3E57BA0F1E7016FB004A4CD3 /* MainViewController.swift */,
-			);
-			name = ViewControllers;
-			sourceTree = "<group>";
-		};
 		3E57BA0C1E7016B8004A4CD3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3E57FD921E70794D00F9BA8A /* TvShow.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -96,8 +105,36 @@
 		3E57BA0E1E7016C7004A4CD3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3E57BA111E7021F1004A4CD3 /* Constants.swift */,
+				3E1C8F4D1E705C2D00832E33 /* UIView+Constraints.swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		3E57BA131E7027AB004A4CD3 /* FeedViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */,
+				3EACB1451E71591800C5AFA9 /* FeedViewController.swift */,
+				3EACB1461E71591800C5AFA9 /* ItemTableViewCell.swift */,
+			);
+			name = FeedViewController;
+			sourceTree = "<group>";
+		};
+		3EACB1411E71476700C5AFA9 /* ScheduleViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */,
+			);
+			name = ScheduleViewController;
+			sourceTree = "<group>";
+		};
+		3EC214F61E71462E00433E9D /* FavoritesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3EC214F81E71468200433E9D /* FavoritesViewController.swift */,
+			);
+			name = FavoritesViewController;
 			sourceTree = "<group>";
 		};
 		7CE739C1C9FB698F91B4A138 /* Pods */ = {
@@ -232,8 +269,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E57FD931E70794D00F9BA8A /* TvShow.swift in Sources */,
+				3EC214F91E71468200433E9D /* FavoritesViewController.swift in Sources */,
+				3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */,
+				3EACB1491E71591800C5AFA9 /* ItemTableViewCell.swift in Sources */,
+				3E1C8F4E1E705C2D00832E33 /* UIView+Constraints.swift in Sources */,
+				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
+				3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */,
 				3E57B9FA1E70163F004A4CD3 /* AppDelegate.swift in Sources */,
-				3E57BA101E7016FB004A4CD3 /* MainViewController.swift in Sources */,
+				3E57BA121E7021F1004A4CD3 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +437,7 @@
 				3E57BA0A1E70163F004A4CD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

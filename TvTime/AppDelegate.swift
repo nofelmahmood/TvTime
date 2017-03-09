@@ -17,8 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        let feedViewController = UINavigationController(rootViewController: FeedViewController())
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: nil, tag: 1)
+        
+        let scheduleViewController = UINavigationController(rootViewController: ScheduleViewController())
+        scheduleViewController.tabBarItem = UITabBarItem(title: "Schedule", image: nil, tag: 0)
+        
+        let favoritesViewController = UINavigationController(rootViewController: FavoritesViewController())
+        let favoritesTabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "favorites"), tag: 2)
+        favoritesTabBarItem.selectedImage = UIImage(named: "favorites_selected")
+        favoritesViewController.tabBarItem = favoritesTabBarItem
+        
+        let tabBarController = UITabBarController()
+        tabBarController.setViewControllers([feedViewController, scheduleViewController, favoritesViewController], animated: true)
+        tabBarController.selectedIndex = 0
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = MainViewController()
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
         return true
