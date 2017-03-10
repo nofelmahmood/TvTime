@@ -19,6 +19,7 @@ struct TvShow: Mappable {
     var name: String!
     var originalName: String!
     var overview: String!
+    var favorite = false
     
     init?(map: Map) {}
     

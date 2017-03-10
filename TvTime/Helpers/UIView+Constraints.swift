@@ -70,6 +70,18 @@ extension UIView {
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
+    func pinEdgesToSuperview(margin: CGFloat) {
+        
+        guard let view = superview else {
+            return
+        }
+        
+        leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin).isActive = true
+        view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin).isActive = true
+        topAnchor.constraint(equalTo: view.topAnchor, constant: margin).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -margin).isActive = true
+    }
+    
     func pinTopToSuperview() {
         
         guard let view = superview else {

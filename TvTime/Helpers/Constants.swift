@@ -14,7 +14,10 @@ struct API {
 }
 
 struct APIEndPoint {
-    static let popular = "https://api.themoviedb.org/3/tv/popular?api_key=b29ef964cc3c10d59b806d3e0c1947b9&language=en-US&page=1"
+    static let newPopular = "http://api.tvmaze.com/shows"
+    static let popular = "https://api.themoviedb.org/3/tv/popular"
+    static let rated = "https://api.themoviedb.org/3/tv/top_rated"
+    static let today = "https://api.themoviedb.org/3/tv/airing_today"
     static let image = "https://image.tmdb.org/t/p/w500"
 }
 

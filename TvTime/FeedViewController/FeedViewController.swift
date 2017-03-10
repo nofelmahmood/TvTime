@@ -17,7 +17,17 @@ class FeedViewController: UIViewController {
         return tV
     }()
     
+    lazy var tableViewActivityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        return activityIndicatorView
+    }()
+    
     let feedItemsDataSource = FeedItemsDataSource()
+    
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +39,27 @@ class FeedViewController: UIViewController {
         tabBarController?.tabBar.tintColor = Color.silver
         navigationController?.navigationBar.barTintColor = UIColor.black
         navigationController?.navigationBar.tintColor = Color.silver
+        tableView.backgroundColor = UIColor.black
         
-        let segmentedControl = UISegmentedControl(items: ["Popular", "Latest", "Today"])
+        let segmentedControl = UISegmentedControl(items: feedItemsDataSource.segments)
         segmentedControl.tintColor = Color.silver
         segmentedControl.selectedSegmentIndex = 0
         navigationItem.titleView = segmentedControl
         
+        segmentedControl.addTarget(self, action: #selector(onFeedItemsSegmentedControlValueChange), for: .valueChanged)
+        
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
         navigationController!.navigationBar.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16.0).isActive = true
+      
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = true
+        searchController.searchBar.placeholder = "Search ..."
+        searchController.searchBar.backgroundColor = UIColor.black
+        searchController.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        
+        tableView.tableHeaderView = searchController.searchBar
         
         view.addSubview(tableView)
         
@@ -45,20 +67,54 @@ class FeedViewController: UIViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
+        tableView.separatorStyle = .none
         
         tableView.pinEdgesToSuperview()
         
         tableView.dataSource = feedItemsDataSource
         
-        feedItemsDataSource.prepare().then(execute: { (result) -> Void in
-            self.tableView.reloadData()
-        })
+        view.addSubview(tableViewActivityIndicatorView)
+        
+        tableViewActivityIndicatorView.hidesWhenStopped = true
+        tableViewActivityIndicatorView.color = UIColor.white
+        
+        tableViewActivityIndicatorView.centerVertically()
+        tableViewActivityIndicatorView.centerHorizontally()
+        
+        tableViewActivityIndicatorView.startAnimating()
+        tableView.alpha = 0
+        feedItemsDataSource.prepare(forSegment: segmentedControl.selectedSegmentIndex)
+            .then(execute: { (result) -> Void in
+                self.tableView.reloadData()
+                self.tableViewActivityIndicatorView.stopAnimating()
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.tableView.alpha = 1
+                })
+            })
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - User Interaction
+    
+    func onFeedItemsSegmentedControlValueChange(sender: UISegmentedControl) {
+        
+        tableViewActivityIndicatorView.startAnimating()
+        tableView.alpha = 0
+        feedItemsDataSource.prepare(forSegment: sender.selectedSegmentIndex)
+            .then(execute: { (result) -> Void in
+                self.tableView.reloadData()
+                self.tableViewActivityIndicatorView.stopAnimating()
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.tableView.alpha = 1
+                })
+            })
     }
     
 
@@ -72,4 +128,12 @@ class FeedViewController: UIViewController {
     }
     */
 
+}
+
+// MARK: - UISearchResultsUpdating
+
+extension FeedViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
 }
