@@ -67,6 +67,7 @@ class FeedViewController: UIViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
+        tableView.separatorStyle = .none
         
         tableView.pinEdgesToSuperview()
         
@@ -81,10 +82,15 @@ class FeedViewController: UIViewController {
         tableViewActivityIndicatorView.centerHorizontally()
         
         tableViewActivityIndicatorView.startAnimating()
+        tableView.alpha = 0
         feedItemsDataSource.prepare(forSegment: segmentedControl.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
                 self.tableView.reloadData()
                 self.tableViewActivityIndicatorView.stopAnimating()
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.tableView.alpha = 1
+                })
             })
         
     }
@@ -99,10 +105,15 @@ class FeedViewController: UIViewController {
     func onFeedItemsSegmentedControlValueChange(sender: UISegmentedControl) {
         
         tableViewActivityIndicatorView.startAnimating()
+        tableView.alpha = 0
         feedItemsDataSource.prepare(forSegment: sender.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
                 self.tableView.reloadData()
                 self.tableViewActivityIndicatorView.stopAnimating()
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.tableView.alpha = 1
+                })
             })
     }
     
