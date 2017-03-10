@@ -51,6 +51,7 @@ class FeedItemsDataSource: NSObject {
     
     func getPopularItems(page: Int) -> AnyPromise {
         
+       // let urlString = "\(APIEndPoint.newPopular)?page=\(page)"
         let urlString = "\(APIEndPoint.popular)?api_key=\(API.key)&language=en-US&page=\(page)"
         let url = URL(string: urlString)!
         
@@ -127,19 +128,29 @@ extension FeedItemsDataSource: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ItemTableViewCell.self), for: indexPath) as! ItemTableViewCell
         
-        let item = items![indexPath.row]
+        var item = items![indexPath.row]
         
         cell.nameLabel.text = item.name
+        cell.overviewLabel.text = item.overview
+        cell.favorited = item.favorite
+        cell.tag = indexPath.row
+        
+        cell.onFavorite = {
+            self.items![cell.tag].favorite = !item.favorite
+            item.favorite = !item.favorite
+            cell.favorited = item.favorite
+           // tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+        
+        cell.itemImageView.image = nil
         
         guard let thumbnailURL = item.thumbnailURL else {
-            cell.itemImageView.image = nil
             return cell
         }
         
         let thumbnailFullURL = "\(APIEndPoint.image)\(thumbnailURL)"
         let url = URL(string: thumbnailFullURL)
         let thumbnailRequest = URLRequest(url: url!)
-        cell.itemImageView.image = nil
         cell.itemImageView.af_setImage(withURLRequest: thumbnailRequest)
         
         
