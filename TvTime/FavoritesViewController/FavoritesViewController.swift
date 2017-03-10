@@ -10,6 +10,13 @@ import UIKit
 
 class FavoritesViewController: UIViewController {
 
+    lazy var tableView: UITableView = {
+        let tV = UITableView()
+        tV.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tV
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +29,11 @@ class FavoritesViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.silver]
         
         navigationItem.title = "Favorites"
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44.0
+        
+        tableView.pinEdgesToSuperview()
     }
 
     override func didReceiveMemoryWarning() {
