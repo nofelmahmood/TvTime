@@ -14,6 +14,7 @@ struct API {
 }
 
 struct APIEndPoint {
+    static let newPopular = "http://api.tvmaze.com/shows"
     static let popular = "https://api.themoviedb.org/3/tv/popular"
     static let rated = "https://api.themoviedb.org/3/tv/top_rated"
     static let today = "https://api.themoviedb.org/3/tv/airing_today"
