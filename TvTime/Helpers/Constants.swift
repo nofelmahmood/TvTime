@@ -18,7 +18,8 @@ struct APIEndPoint {
     static let popular = "https://api.themoviedb.org/3/tv/popular"
     static let rated = "https://api.themoviedb.org/3/tv/top_rated"
     static let today = "https://api.themoviedb.org/3/tv/airing_today"
-    static let externalIDs = "https://api.themoviedb.org/3/tv/1402/external_ids"
+    static let externalIDs = "https://api.themoviedb.org/3/tv"
+    static let credits = "https://api.themoviedb.org/3/tv/"
     static let image = "https://image.tmdb.org/t/p/w500"
     static let imdb = "http://www.omdbapi.com/"
 }
