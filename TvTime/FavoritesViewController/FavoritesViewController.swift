@@ -19,8 +19,6 @@ class FavoritesViewController: UIViewController {
     
     let favoritesItemsDataSource = FavoritesItemsDataSource()
     
-    var searchController: UISearchController!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,14 +32,6 @@ class FavoritesViewController: UIViewController {
         tableView.backgroundColor = UIColor.black
         
         navigationItem.title = "Favorites"
-        
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search ..."
-        searchController.searchBar.backgroundColor = UIColor.black
-        searchController.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        tableView.tableHeaderView = searchController.searchBar
         
         view.addSubview(tableView)
         
