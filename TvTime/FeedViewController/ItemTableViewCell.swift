@@ -73,6 +73,7 @@ class ItemTableViewCell: UITableViewCell {
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
         stackView.axis = .horizontal
+        stackView.spacing = 4
         
         return stackView
     }()
@@ -102,6 +103,9 @@ class ItemTableViewCell: UITableViewCell {
         
         itemImageView.widthAnchor.constraint(equalToConstant: width).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: height).isActive = true
+        
+        favoriteButton.widthAnchor.constraint(equalToConstant: 26.4).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: 25.2).isActive = true
         
         stackView.pinEdgesToSuperview(margin: 10)
     }
