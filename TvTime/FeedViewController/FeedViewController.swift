@@ -27,8 +27,6 @@ class FeedViewController: UIViewController {
     
     let feedItemsDataSource = FeedItemsDataSource()
     
-    var searchController: UISearchController!
-    
     var pushAnimator = PushAnimator()
     var popAnimator = PopAnimator()
     
@@ -57,15 +55,6 @@ class FeedViewController: UIViewController {
       //  segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
         //navigationController!.navigationBar.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16.0).isActive = true
       
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search ..."
-        searchController.searchBar.backgroundColor = UIColor.black
-        searchController.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        
-        tableView.tableHeaderView = searchController.searchBar
-        
         view.addSubview(tableView)
         
         tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
