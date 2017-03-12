@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Realm
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,6 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
+        
+        let realm = RLMRealm.default()
+        debugPrint("Path to realm file: " + realm.configuration.fileURL!.absoluteString)
         
         return true
     }

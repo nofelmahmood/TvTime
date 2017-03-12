@@ -30,6 +30,9 @@
 		3ED43ED71E72EBD400F46F6D /* TvShowDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED43ED61E72EBD400F46F6D /* TvShowDataSource.swift */; };
 		3ED43ED91E72EC7300F46F6D /* TvShowDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED43ED81E72EC7300F46F6D /* TvShowDetailTableViewCell.swift */; };
 		3EFCD9351E754C6500364284 /* TvShowOverviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9341E754C6500364284 /* TvShowOverviewTableViewCell.swift */; };
+		3EFCD9371E75652600364284 /* IMDBTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9361E75652600364284 /* IMDBTvShow.swift */; };
+		3EFCD9391E7577D400364284 /* UIImage+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9381E7577D400364284 /* UIImage+Helpers.swift */; };
+		3EFCD93B1E7583B300364284 /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD93A1E7583B300364284 /* Credit.swift */; };
 		B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +76,9 @@
 		3ED43ED61E72EBD400F46F6D /* TvShowDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowDataSource.swift; path = TvShowViewController/TvShowDataSource.swift; sourceTree = "<group>"; };
 		3ED43ED81E72EC7300F46F6D /* TvShowDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowDetailTableViewCell.swift; path = TvShowViewController/TvShowDetailTableViewCell.swift; sourceTree = "<group>"; };
 		3EFCD9341E754C6500364284 /* TvShowOverviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowOverviewTableViewCell.swift; path = TvShowViewController/TvShowOverviewTableViewCell.swift; sourceTree = "<group>"; };
+		3EFCD9361E75652600364284 /* IMDBTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMDBTvShow.swift; path = Models/IMDBTvShow.swift; sourceTree = "<group>"; };
+		3EFCD9381E7577D400364284 /* UIImage+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Helpers.swift"; path = "Helpers/UIImage+Helpers.swift"; sourceTree = "<group>"; };
+		3EFCD93A1E7583B300364284 /* Credit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Credit.swift; path = Models/Credit.swift; sourceTree = "<group>"; };
 		8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TvTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				3E57FD921E70794D00F9BA8A /* TvShow.swift */,
+				3EFCD9361E75652600364284 /* IMDBTvShow.swift */,
+				3EFCD93A1E7583B300364284 /* Credit.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -161,6 +169,7 @@
 			children = (
 				3E57BA111E7021F1004A4CD3 /* Constants.swift */,
 				3E1C8F4D1E705C2D00832E33 /* UIView+Constraints.swift */,
+				3EFCD9381E7577D400364284 /* UIImage+Helpers.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -353,10 +362,12 @@
 				3EFCD9351E754C6500364284 /* TvShowOverviewTableViewCell.swift in Sources */,
 				3E57FD931E70794D00F9BA8A /* TvShow.swift in Sources */,
 				3EC214F91E71468200433E9D /* FavoritesViewController.swift in Sources */,
+				3EFCD9371E75652600364284 /* IMDBTvShow.swift in Sources */,
 				3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */,
 				3E4298431E72BF2D00FAD65E /* TvShowViewController.swift in Sources */,
 				3EACB1491E71591800C5AFA9 /* ItemTableViewCell.swift in Sources */,
 				3E1C8F4E1E705C2D00832E33 /* UIView+Constraints.swift in Sources */,
+				3EFCD9391E7577D400364284 /* UIImage+Helpers.swift in Sources */,
 				3E4298451E72C1F400FAD65E /* PushAnimator.swift in Sources */,
 				3ED43ED71E72EBD400F46F6D /* TvShowDataSource.swift in Sources */,
 				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
@@ -365,6 +376,7 @@
 				3E57B9FA1E70163F004A4CD3 /* AppDelegate.swift in Sources */,
 				3E57BA121E7021F1004A4CD3 /* Constants.swift in Sources */,
 				3E6C41F21E727F2500939DE5 /* FavoritesItemsDataSource.swift in Sources */,
+				3EFCD93B1E7583B300364284 /* Credit.swift in Sources */,
 				3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
