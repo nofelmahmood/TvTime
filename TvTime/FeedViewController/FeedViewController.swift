@@ -29,6 +29,11 @@ class FeedViewController: UIViewController {
     
     var searchController: UISearchController!
     
+    var pushAnimator = PushAnimator()
+    var popAnimator = PopAnimator()
+    
+    var selectedRowIndexPath: IndexPath!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,9 +53,9 @@ class FeedViewController: UIViewController {
         
         segmentedControl.addTarget(self, action: #selector(onFeedItemsSegmentedControlValueChange), for: .valueChanged)
         
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
-        navigationController!.navigationBar.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16.0).isActive = true
+        //segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+      //  segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
+        //navigationController!.navigationBar.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16.0).isActive = true
       
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -72,6 +77,7 @@ class FeedViewController: UIViewController {
         tableView.pinEdgesToSuperview()
         
         tableView.dataSource = feedItemsDataSource
+        tableView.delegate = self
         
         view.addSubview(tableViewActivityIndicatorView)
         
@@ -85,6 +91,7 @@ class FeedViewController: UIViewController {
         tableView.alpha = 0
         feedItemsDataSource.prepare(forSegment: segmentedControl.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
+                
                 self.tableView.reloadData()
                 self.tableViewActivityIndicatorView.stopAnimating()
                 
@@ -92,6 +99,8 @@ class FeedViewController: UIViewController {
                     self.tableView.alpha = 1
                 })
             })
+        
+        self.navigationController?.delegate = self
         
     }
 
@@ -130,10 +139,46 @@ class FeedViewController: UIViewController {
 
 }
 
+// MARK: - UITableViewDelegate 
+
+extension FeedViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let tvShow = feedItemsDataSource.items![indexPath.row]
+        let item = tableView.cellForRow(at: indexPath) as! ItemTableViewCell
+        let image = item.itemImageView.image
+        
+        let tvShowViewController = TvShowViewController()
+        tvShowViewController.itemImage = image
+        tvShowViewController.tvShow = tvShow
+        
+        selectedRowIndexPath = indexPath
+        
+        navigationController?.pushViewController(tvShowViewController, animated: true)
+    }
+}
+
 // MARK: - UISearchResultsUpdating
 
 extension FeedViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         
+    }
+}
+
+// MARK: - UINavigationControllerDelegate
+
+extension FeedViewController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if operation == .push {
+            return self.pushAnimator
+        } else if operation == .pop {
+            return self.popAnimator
+        }
+        
+        return nil
     }
 }
