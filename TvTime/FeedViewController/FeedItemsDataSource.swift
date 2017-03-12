@@ -11,6 +11,8 @@ import Alamofire
 import PromiseKit
 import AlamofireObjectMapper
 import AlamofireImage
+import Realm
+import RealmSwift
 
 protocol DataSource {
     func dataSource(dataDidPrepare data: AnyObject?)
@@ -51,7 +53,6 @@ class FeedItemsDataSource: NSObject {
     
     func getPopularItems(page: Int) -> AnyPromise {
         
-       // let urlString = "\(APIEndPoint.newPopular)?page=\(page)"
         let urlString = "\(APIEndPoint.popular)?api_key=\(API.key)&language=en-US&page=\(page)"
         let url = URL(string: urlString)!
         
@@ -105,6 +106,7 @@ class FeedItemsDataSource: NSObject {
             Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "results", completionHandler: { (response: DataResponse<[TvShow]>) in
                 
                 if response.result.isSuccess {
+                    
                     resolve(response.result.value!)
                     
                 } else {
@@ -139,7 +141,6 @@ extension FeedItemsDataSource: UITableViewDataSource {
             self.items![cell.tag].favorite = !item.favorite
             item.favorite = !item.favorite
             cell.favorited = item.favorite
-           // tableView.reloadRows(at: [indexPath], with: .automatic)
         }
         
         cell.itemImageView.image = nil
