@@ -33,6 +33,12 @@
 		3EFCD9371E75652600364284 /* IMDBTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9361E75652600364284 /* IMDBTvShow.swift */; };
 		3EFCD9391E7577D400364284 /* UIImage+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9381E7577D400364284 /* UIImage+Helpers.swift */; };
 		3EFCD93B1E7583B300364284 /* Credit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD93A1E7583B300364284 /* Credit.swift */; };
+		3EFCD93D1E758D9D00364284 /* TvMazeTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD93C1E758D9D00364284 /* TvMazeTvShow.swift */; };
+		3EFCD93F1E75942000364284 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD93E1E75942000364284 /* Season.swift */; };
+		3EFCD9411E759DBB00364284 /* TvShowCreditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9401E759DBB00364284 /* TvShowCreditTableViewCell.swift */; };
+		3EFCD9431E75D7BD00364284 /* TvShowCastHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9421E75D7BD00364284 /* TvShowCastHeaderView.swift */; };
+		3EFCD9451E75DA9A00364284 /* TvShowSeasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */; };
+		3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9471E75E81400364284 /* SearchViewController.swift */; };
 		B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +85,12 @@
 		3EFCD9361E75652600364284 /* IMDBTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMDBTvShow.swift; path = Models/IMDBTvShow.swift; sourceTree = "<group>"; };
 		3EFCD9381E7577D400364284 /* UIImage+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Helpers.swift"; path = "Helpers/UIImage+Helpers.swift"; sourceTree = "<group>"; };
 		3EFCD93A1E7583B300364284 /* Credit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Credit.swift; path = Models/Credit.swift; sourceTree = "<group>"; };
+		3EFCD93C1E758D9D00364284 /* TvMazeTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvMazeTvShow.swift; path = Models/TvMazeTvShow.swift; sourceTree = "<group>"; };
+		3EFCD93E1E75942000364284 /* Season.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Season.swift; path = Models/Season.swift; sourceTree = "<group>"; };
+		3EFCD9401E759DBB00364284 /* TvShowCreditTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowCreditTableViewCell.swift; path = TvShowViewController/TvShowCreditTableViewCell.swift; sourceTree = "<group>"; };
+		3EFCD9421E75D7BD00364284 /* TvShowCastHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowCastHeaderView.swift; path = TvShowViewController/TvShowCastHeaderView.swift; sourceTree = "<group>"; };
+		3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowSeasonTableViewCell.swift; path = TvShowViewController/TvShowSeasonTableViewCell.swift; sourceTree = "<group>"; };
+		3EFCD9471E75E81400364284 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = SearchViewController/SearchViewController.swift; sourceTree = "<group>"; };
 		8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TvTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +126,9 @@
 				3ED43ED61E72EBD400F46F6D /* TvShowDataSource.swift */,
 				3ED43ED81E72EC7300F46F6D /* TvShowDetailTableViewCell.swift */,
 				3EFCD9341E754C6500364284 /* TvShowOverviewTableViewCell.swift */,
+				3EFCD9401E759DBB00364284 /* TvShowCreditTableViewCell.swift */,
+				3EFCD9421E75D7BD00364284 /* TvShowCastHeaderView.swift */,
+				3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */,
 			);
 			name = TvShowViewController;
 			sourceTree = "<group>";
@@ -142,6 +157,7 @@
 				3E57BA0E1E7016C7004A4CD3 /* Helpers */,
 				3E6C41FF1E72A5A300939DE5 /* RealmModels */,
 				3E57BA0C1E7016B8004A4CD3 /* Models */,
+				3EFCD9461E75E7FB00364284 /* SearchViewController */,
 				3EACB1411E71476700C5AFA9 /* ScheduleViewController */,
 				3EC214F61E71462E00433E9D /* FavoritesViewController */,
 				3E4298411E72BF0700FAD65E /* TvShowViewController */,
@@ -160,6 +176,8 @@
 				3E57FD921E70794D00F9BA8A /* TvShow.swift */,
 				3EFCD9361E75652600364284 /* IMDBTvShow.swift */,
 				3EFCD93A1E7583B300364284 /* Credit.swift */,
+				3EFCD93C1E758D9D00364284 /* TvMazeTvShow.swift */,
+				3EFCD93E1E75942000364284 /* Season.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -209,6 +227,14 @@
 				3E6C41F11E727F2500939DE5 /* FavoritesItemsDataSource.swift */,
 			);
 			name = FavoritesViewController;
+			sourceTree = "<group>";
+		};
+		3EFCD9461E75E7FB00364284 /* SearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3EFCD9471E75E81400364284 /* SearchViewController.swift */,
+			);
+			name = SearchViewController;
 			sourceTree = "<group>";
 		};
 		7CE739C1C9FB698F91B4A138 /* Pods */ = {
@@ -359,12 +385,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E4298491E72E6E600FAD65E /* PopAnimator.swift in Sources */,
+				3EFCD93D1E758D9D00364284 /* TvMazeTvShow.swift in Sources */,
+				3EFCD9451E75DA9A00364284 /* TvShowSeasonTableViewCell.swift in Sources */,
 				3EFCD9351E754C6500364284 /* TvShowOverviewTableViewCell.swift in Sources */,
 				3E57FD931E70794D00F9BA8A /* TvShow.swift in Sources */,
 				3EC214F91E71468200433E9D /* FavoritesViewController.swift in Sources */,
 				3EFCD9371E75652600364284 /* IMDBTvShow.swift in Sources */,
 				3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */,
+				3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */,
 				3E4298431E72BF2D00FAD65E /* TvShowViewController.swift in Sources */,
+				3EFCD9411E759DBB00364284 /* TvShowCreditTableViewCell.swift in Sources */,
 				3EACB1491E71591800C5AFA9 /* ItemTableViewCell.swift in Sources */,
 				3E1C8F4E1E705C2D00832E33 /* UIView+Constraints.swift in Sources */,
 				3EFCD9391E7577D400364284 /* UIImage+Helpers.swift in Sources */,
@@ -373,11 +403,13 @@
 				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
 				3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */,
 				3ED43ED91E72EC7300F46F6D /* TvShowDetailTableViewCell.swift in Sources */,
+				3EFCD93F1E75942000364284 /* Season.swift in Sources */,
 				3E57B9FA1E70163F004A4CD3 /* AppDelegate.swift in Sources */,
 				3E57BA121E7021F1004A4CD3 /* Constants.swift in Sources */,
 				3E6C41F21E727F2500939DE5 /* FavoritesItemsDataSource.swift in Sources */,
 				3EFCD93B1E7583B300364284 /* Credit.swift in Sources */,
 				3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */,
+				3EFCD9431E75D7BD00364284 /* TvShowCastHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

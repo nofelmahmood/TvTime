@@ -31,8 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         favoritesTabBarItem.selectedImage = UIImage(named: "favorites_selected")
         favoritesViewController.tabBarItem = favoritesTabBarItem
         
+        let searchViewController = UINavigationController(rootViewController: SearchViewController())
+        let searchTabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 3)
+        searchViewController.tabBarItem = searchTabBarItem
+        
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([feedViewController, scheduleViewController, favoritesViewController], animated: true)
+        tabBarController.setViewControllers([feedViewController, scheduleViewController, favoritesViewController, searchViewController], animated: true)
         tabBarController.selectedIndex = 0
         
         window = UIWindow(frame: UIScreen.main.bounds)
