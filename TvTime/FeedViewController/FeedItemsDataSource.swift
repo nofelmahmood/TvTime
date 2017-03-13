@@ -132,28 +132,13 @@ extension FeedItemsDataSource: UITableViewDataSource {
         
         var item = items![indexPath.row]
         
-        cell.nameLabel.text = item.name
-        cell.overviewLabel.text = item.overview
-        cell.favorited = item.favorite
-        cell.tag = indexPath.row
+        cell.setTvShow(tvShow: item, row: indexPath.row)
         
         cell.onFavorite = {
             self.items![cell.tag].favorite = !item.favorite
             item.favorite = !item.favorite
             cell.favorited = item.favorite
         }
-        
-        cell.itemImageView.image = nil
-        
-        guard let thumbnailURL = item.thumbnailURL else {
-            return cell
-        }
-        
-        let thumbnailFullURL = "\(APIEndPoint.image)\(thumbnailURL)"
-        let url = URL(string: thumbnailFullURL)
-        let thumbnailRequest = URLRequest(url: url!)
-        cell.itemImageView.af_setImage(withURLRequest: thumbnailRequest)
-        
         
         return cell
     }
