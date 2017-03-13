@@ -39,8 +39,6 @@
 		3EFCD9451E75DA9A00364284 /* TvShowSeasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */; };
 		3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9471E75E81400364284 /* SearchViewController.swift */; };
 		3EFCD94A1E766F4A00364284 /* SearchItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */; };
-		3EFCD94D1E7683F400364284 /* FavoriteAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD94C1E7683F400364284 /* FavoriteAlertViewController.swift */; };
-		3EFCD94F1E76890E00364284 /* FavoriteAlertViewControllerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD94E1E76890E00364284 /* FavoriteAlertViewControllerAnimator.swift */; };
 		3EFCD9511E769A0600364284 /* FavoriteConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9501E769A0600364284 /* FavoriteConfirmationView.swift */; };
 		B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */; };
 /* End PBXBuildFile section */
@@ -94,8 +92,6 @@
 		3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowSeasonTableViewCell.swift; path = TvShowViewController/TvShowSeasonTableViewCell.swift; sourceTree = "<group>"; };
 		3EFCD9471E75E81400364284 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = SearchViewController/SearchViewController.swift; sourceTree = "<group>"; };
 		3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItemsDataSource.swift; path = SearchViewController/SearchItemsDataSource.swift; sourceTree = "<group>"; };
-		3EFCD94C1E7683F400364284 /* FavoriteAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteAlertViewController.swift; path = FavoriteAlertViewController/FavoriteAlertViewController.swift; sourceTree = "<group>"; };
-		3EFCD94E1E76890E00364284 /* FavoriteAlertViewControllerAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteAlertViewControllerAnimator.swift; path = FavoriteAlertViewController/FavoriteAlertViewControllerAnimator.swift; sourceTree = "<group>"; };
 		3EFCD9501E769A0600364284 /* FavoriteConfirmationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteConfirmationView.swift; path = FeedViewController/FavoriteConfirmationView.swift; sourceTree = "<group>"; };
 		8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TvTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.release.xcconfig"; sourceTree = "<group>"; };
@@ -163,7 +159,6 @@
 				3E57BA0E1E7016C7004A4CD3 /* Helpers */,
 				3E6C41FF1E72A5A300939DE5 /* RealmModels */,
 				3E57BA0C1E7016B8004A4CD3 /* Models */,
-				3EFCD94B1E7683C800364284 /* FavoriteAlertViewController */,
 				3EFCD9461E75E7FB00364284 /* SearchViewController */,
 				3EACB1411E71476700C5AFA9 /* ScheduleViewController */,
 				3EC214F61E71462E00433E9D /* FavoritesViewController */,
@@ -243,15 +238,6 @@
 				3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */,
 			);
 			name = SearchViewController;
-			sourceTree = "<group>";
-		};
-		3EFCD94B1E7683C800364284 /* FavoriteAlertViewController */ = {
-			isa = PBXGroup;
-			children = (
-				3EFCD94C1E7683F400364284 /* FavoriteAlertViewController.swift */,
-				3EFCD94E1E76890E00364284 /* FavoriteAlertViewControllerAnimator.swift */,
-			);
-			name = FavoriteAlertViewController;
 			sourceTree = "<group>";
 		};
 		7CE739C1C9FB698F91B4A138 /* Pods */ = {
@@ -415,7 +401,6 @@
 				3E1C8F4E1E705C2D00832E33 /* UIView+Constraints.swift in Sources */,
 				3EFCD9391E7577D400364284 /* UIImage+Helpers.swift in Sources */,
 				3E4298451E72C1F400FAD65E /* PushAnimator.swift in Sources */,
-				3EFCD94F1E76890E00364284 /* FavoriteAlertViewControllerAnimator.swift in Sources */,
 				3EFCD9511E769A0600364284 /* FavoriteConfirmationView.swift in Sources */,
 				3ED43ED71E72EBD400F46F6D /* TvShowDataSource.swift in Sources */,
 				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
@@ -429,7 +414,6 @@
 				3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */,
 				3EFCD9431E75D7BD00364284 /* TvShowCastHeaderView.swift in Sources */,
 				3EFCD94A1E766F4A00364284 /* SearchItemsDataSource.swift in Sources */,
-				3EFCD94D1E7683F400364284 /* FavoriteAlertViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
