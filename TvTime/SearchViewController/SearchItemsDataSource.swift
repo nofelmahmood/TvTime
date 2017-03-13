@@ -34,6 +34,10 @@ class SearchItemsDataSource: NSObject {
         
         return AnyPromise(promise)
     }
+    
+    func clear() {
+        items = nil
+    }
 }
 
 extension SearchItemsDataSource: UITableViewDataSource {

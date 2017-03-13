@@ -67,6 +67,9 @@ class SearchViewController: UIViewController {
         let searchBar = navigationItem.titleView
         let searchBarTextField = searchBar?.value(forKey: "searchField") as? UITextField
         searchBarTextField?.text = ""
+        
+        searchItemsDataSource.clear()
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
