@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ItemTableViewCell: UITableViewCell {
 
@@ -30,7 +31,7 @@ class ItemTableViewCell: UITableViewCell {
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Avenir-Light", size: 18)
+        label.font = UIFont(name: Font.name, size: 18)
         label.textColor = UIColor.white
         label.text = ""
         
@@ -40,7 +41,7 @@ class ItemTableViewCell: UITableViewCell {
     lazy var overviewLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Avenir-Light", size: 14)
+        label.font = UIFont(name: Font.name, size: 14)
         label.textColor = Color.silver
         label.numberOfLines = 2
         
@@ -51,7 +52,7 @@ class ItemTableViewCell: UITableViewCell {
         let stackView = UIStackView(arrangedSubviews: [self.nameAndFavoriteButtonSV, self.overviewLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 2
         
@@ -124,6 +125,31 @@ class ItemTableViewCell: UITableViewCell {
     
     func onFavoriteButtonPress() {
         onFavorite?()
+    }
+    
+    
+    // MARK: - Helpers
+    
+    func setTvShow(tvShow: TvShow?, row: Int) {
+        
+        guard let tvShow = tvShow else {
+            return
+        }
+        
+        nameLabel.text = tvShow.name
+        overviewLabel.text = tvShow.overview
+        favorited = tvShow.favorite
+        tag = row
+        itemImageView.image = nil
+        
+        guard let thumbnailURL = tvShow.thumbnailURL else {
+            return
+        }
+        
+        let thumbnailFullURL = "\(APIEndPoint.image)\(thumbnailURL)"
+        let url = URL(string: thumbnailFullURL)
+        let thumbnailRequest = URLRequest(url: url!)
+        itemImageView.af_setImage(withURLRequest: thumbnailRequest)
     }
 
 }
