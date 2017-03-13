@@ -49,17 +49,26 @@ class TvShowViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        tableView.pinEdgesToSuperview(margin: 8)
+        tableView.pinTopToSuperview()
+        tableView.pinLeadingToSuperview(margin: 8)
+        tableView.pinTrailingToSuperview(margin: 8)
+        tableView.pinBottomToSuperview(margin: 8)
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = 25
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         
+        tableView.register(TvShowCastHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: TvShowCastHeaderView.self))
         tableView.register(TvShowDetailTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowDetailTableViewCell.self))
         tableView.register(TvShowOverviewTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowOverviewTableViewCell.self))
+        tableView.register(TvShowCreditTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowCreditTableViewCell.self))
+        tableView.register(TvShowSeasonTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowSeasonTableViewCell.self))
         
         tableView.dataSource = tvShowDataSource
+        tableView.delegate = self
         
         tvShowDataSource.prepare(selectedTvShow: tvShow, posterImage: itemImage).then(execute: { (result) -> Void in
             self.tableView.reloadData()
@@ -90,4 +99,40 @@ class TvShowViewController: UIViewController {
     }
     */
 
+}
+
+extension TvShowViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        switch section {
+            
+        case 0:
+            return CGFloat.leastNonzeroMagnitude
+        default:
+            return 25
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        switch section {
+        case 1:
+            
+            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TvShowCastHeaderView.self))
+            
+            return view
+        case 2:
+            
+            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TvShowCastHeaderView.self))
+            
+            return view
+        default:
+            break
+        }
+
+        
+        return nil
+    }
 }
