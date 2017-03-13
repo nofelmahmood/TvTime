@@ -10,10 +10,25 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    var searchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tabBarController?.tabBar.barTintColor = UIColor.black
+        tabBarController?.tabBar.tintColor = Color.silver
+        navigationController?.navigationBar.barTintColor = UIColor.black
+        navigationController?.navigationBar.tintColor = Color.silver
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.silver]
+        
+        let searchBar = UISearchBar()
+        let searchBarTextField = searchBar.value(forKey: "searchField") as? UITextField
+        searchBarTextField?.backgroundColor = UIColor.black
+        searchBarTextField?.textColor = Color.silver
+        searchBarTextField?.attributedPlaceholder = NSAttributedString(string: "Search Tv shows ...", attributes: [NSForegroundColorAttributeName: UIColor.darkGray])
+        navigationItem.titleView = searchBar
+        
     }
 
     override func didReceiveMemoryWarning() {
