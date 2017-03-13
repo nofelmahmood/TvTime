@@ -44,7 +44,6 @@ class TvShowDetailTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .leading
-        stackView.spacing = 8
         
         return stackView
     }()
@@ -67,7 +66,6 @@ class TvShowDetailTableViewCell: UITableViewCell {
         stackView.distribution = .fill
         stackView.alignment = .leading
         stackView.axis = .horizontal
-        stackView.spacing = 8
         
         return stackView
     }()
@@ -89,7 +87,6 @@ class TvShowDetailTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .leading
-        stackView.spacing = 8
         
         return stackView
     }()
@@ -112,7 +109,6 @@ class TvShowDetailTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .leading
-        stackView.spacing = 8
         
         return stackView
     }()

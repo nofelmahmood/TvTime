@@ -38,6 +38,7 @@
 		3EFCD9431E75D7BD00364284 /* TvShowCastHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9421E75D7BD00364284 /* TvShowCastHeaderView.swift */; };
 		3EFCD9451E75DA9A00364284 /* TvShowSeasonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */; };
 		3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9471E75E81400364284 /* SearchViewController.swift */; };
+		3EFCD94A1E766F4A00364284 /* SearchItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */; };
 		B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		3EFCD9421E75D7BD00364284 /* TvShowCastHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowCastHeaderView.swift; path = TvShowViewController/TvShowCastHeaderView.swift; sourceTree = "<group>"; };
 		3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowSeasonTableViewCell.swift; path = TvShowViewController/TvShowSeasonTableViewCell.swift; sourceTree = "<group>"; };
 		3EFCD9471E75E81400364284 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = SearchViewController/SearchViewController.swift; sourceTree = "<group>"; };
+		3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItemsDataSource.swift; path = SearchViewController/SearchItemsDataSource.swift; sourceTree = "<group>"; };
 		8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TvTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				3EFCD9471E75E81400364284 /* SearchViewController.swift */,
+				3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */,
 			);
 			name = SearchViewController;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				3EFCD93B1E7583B300364284 /* Credit.swift in Sources */,
 				3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */,
 				3EFCD9431E75D7BD00364284 /* TvShowCastHeaderView.swift in Sources */,
+				3EFCD94A1E766F4A00364284 /* SearchItemsDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
