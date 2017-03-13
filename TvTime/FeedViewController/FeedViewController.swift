@@ -65,6 +65,7 @@ class FeedViewController: UIViewController {
         
         tableView.pinEdgesToSuperview()
         
+        feedItemsDataSource.delegate = self
         tableView.dataSource = feedItemsDataSource
         tableView.delegate = self
         
@@ -115,6 +116,41 @@ class FeedViewController: UIViewController {
             })
     }
     
+    // MARK: - Helpers
+    
+    func showFavoritedConfirmation(favorited: Bool) {
+        
+        let confirmationView = FavoriteConfirmationView()
+        confirmationView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(confirmationView)
+        
+        confirmationView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        confirmationView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        confirmationView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        confirmationView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        confirmationView.setFavorite(favorite: favorited)
+        
+        confirmationView.alpha = 0
+        
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            
+            confirmationView.alpha = 1
+            self.tableView.alpha = 0.6
+            
+        }, completion: { completed in
+            UIView.animate(withDuration: 0.25, delay: 0.75, options: .curveEaseOut, animations: {
+                
+                self.tableView.alpha = 1
+                confirmationView.alpha = 0
+                
+            }, completion: { completed in
+                confirmationView.removeFromSuperview()
+            })
+        })
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -148,14 +184,6 @@ extension FeedViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - UISearchResultsUpdating
-
-extension FeedViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
-}
-
 // MARK: - UINavigationControllerDelegate
 
 extension FeedViewController: UINavigationControllerDelegate {
@@ -170,4 +198,14 @@ extension FeedViewController: UINavigationControllerDelegate {
         
         return nil
     }
+}
+
+// MARK: - FeedItemsDataSourceDelegate 
+
+extension FeedViewController: FeedItemsDataSourceDelegate {
+    
+    func feedItemsDataSource(dataSource: FeedItemsDataSource, onFavorite favorite: Bool) {
+        showFavoritedConfirmation(favorited: favorite)
+    }
+    
 }

@@ -14,14 +14,16 @@ import AlamofireImage
 import Realm
 import RealmSwift
 
-protocol DataSource {
-    func dataSource(dataDidPrepare data: AnyObject?)
+protocol FeedItemsDataSourceDelegate {
+    func feedItemsDataSource(dataSource: FeedItemsDataSource, onFavorite favorite: Bool)
 }
 
 class FeedItemsDataSource: NSObject {
     
     var segments = ["Popular", "Rated", "Today"]
     var items: [TvShow]?
+    
+    var delegate: FeedItemsDataSourceDelegate?
     
     func prepare(forSegment segment: Int) -> AnyPromise {
         
@@ -138,6 +140,8 @@ extension FeedItemsDataSource: UITableViewDataSource {
             self.items![cell.tag].favorite = !item.favorite
             item.favorite = !item.favorite
             cell.favorited = item.favorite
+            
+            self.delegate?.feedItemsDataSource(dataSource: self, onFavorite: item.favorite)
         }
         
         return cell
