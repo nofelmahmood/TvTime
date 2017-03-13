@@ -11,15 +11,19 @@ import Alamofire
 import PromiseKit
 import AlamofireObjectMapper
 import AlamofireImage
+import Realm
+import RealmSwift
 
-protocol DataSource {
-    func dataSource(dataDidPrepare data: AnyObject?)
+protocol FeedItemsDataSourceDelegate {
+    func feedItemsDataSource(dataSource: FeedItemsDataSource, onFavorite favorite: Bool)
 }
 
 class FeedItemsDataSource: NSObject {
     
     var segments = ["Popular", "Rated", "Today"]
     var items: [TvShow]?
+    
+    var delegate: FeedItemsDataSourceDelegate?
     
     func prepare(forSegment segment: Int) -> AnyPromise {
         
@@ -104,6 +108,7 @@ class FeedItemsDataSource: NSObject {
             Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "results", completionHandler: { (response: DataResponse<[TvShow]>) in
                 
                 if response.result.isSuccess {
+                    
                     resolve(response.result.value!)
                     
                 } else {
@@ -127,21 +132,17 @@ extension FeedItemsDataSource: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ItemTableViewCell.self), for: indexPath) as! ItemTableViewCell
         
-        let item = items![indexPath.row]
+        var item = items![indexPath.row]
         
-        cell.nameLabel.text = item.name
+        cell.setTvShow(tvShow: item, row: indexPath.row)
         
-        guard let thumbnailURL = item.thumbnailURL else {
-            cell.itemImageView.image = nil
-            return cell
+        cell.onFavorite = {
+            self.items![cell.tag].favorite = !item.favorite
+            item.favorite = !item.favorite
+            cell.favorited = item.favorite
+            
+            self.delegate?.feedItemsDataSource(dataSource: self, onFavorite: item.favorite)
         }
-        
-        let thumbnailFullURL = "\(APIEndPoint.image)\(thumbnailURL)"
-        let url = URL(string: thumbnailFullURL)
-        let thumbnailRequest = URLRequest(url: url!)
-        cell.itemImageView.image = nil
-        cell.itemImageView.af_setImage(withURLRequest: thumbnailRequest)
-        
         
         return cell
     }

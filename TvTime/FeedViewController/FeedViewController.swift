@@ -27,7 +27,10 @@ class FeedViewController: UIViewController {
     
     let feedItemsDataSource = FeedItemsDataSource()
     
-    var searchController: UISearchController!
+    var pushAnimator = PushAnimator()
+    var popAnimator = PopAnimator()
+    
+    var selectedRowIndexPath: IndexPath!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,19 +51,10 @@ class FeedViewController: UIViewController {
         
         segmentedControl.addTarget(self, action: #selector(onFeedItemsSegmentedControlValueChange), for: .valueChanged)
         
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
-        navigationController!.navigationBar.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16.0).isActive = true
+        //segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+      //  segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
+        //navigationController!.navigationBar.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16.0).isActive = true
       
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = true
-        searchController.searchBar.placeholder = "Search ..."
-        searchController.searchBar.backgroundColor = UIColor.black
-        searchController.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        
-        tableView.tableHeaderView = searchController.searchBar
-        
         view.addSubview(tableView)
         
         tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
@@ -71,7 +65,9 @@ class FeedViewController: UIViewController {
         
         tableView.pinEdgesToSuperview()
         
+        feedItemsDataSource.delegate = self
         tableView.dataSource = feedItemsDataSource
+        tableView.delegate = self
         
         view.addSubview(tableViewActivityIndicatorView)
         
@@ -85,6 +81,7 @@ class FeedViewController: UIViewController {
         tableView.alpha = 0
         feedItemsDataSource.prepare(forSegment: segmentedControl.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
+                
                 self.tableView.reloadData()
                 self.tableViewActivityIndicatorView.stopAnimating()
                 
@@ -92,6 +89,8 @@ class FeedViewController: UIViewController {
                     self.tableView.alpha = 1
                 })
             })
+        
+        self.navigationController?.delegate = self
         
     }
 
@@ -117,6 +116,41 @@ class FeedViewController: UIViewController {
             })
     }
     
+    // MARK: - Helpers
+    
+    func showFavoritedConfirmation(favorited: Bool) {
+        
+        let confirmationView = FavoriteConfirmationView()
+        confirmationView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(confirmationView)
+        
+        confirmationView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        confirmationView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        confirmationView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        confirmationView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        confirmationView.setFavorite(favorite: favorited)
+        
+        confirmationView.alpha = 0
+        
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
+            
+            confirmationView.alpha = 1
+            self.tableView.alpha = 0.6
+            
+        }, completion: { completed in
+            UIView.animate(withDuration: 0.25, delay: 0.75, options: .curveEaseOut, animations: {
+                
+                self.tableView.alpha = 1
+                confirmationView.alpha = 0
+                
+            }, completion: { completed in
+                confirmationView.removeFromSuperview()
+            })
+        })
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -130,10 +164,48 @@ class FeedViewController: UIViewController {
 
 }
 
-// MARK: - UISearchResultsUpdating
+// MARK: - UITableViewDelegate 
 
-extension FeedViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+extension FeedViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let tvShow = feedItemsDataSource.items![indexPath.row]
+        let item = tableView.cellForRow(at: indexPath) as! ItemTableViewCell
+        let image = item.itemImageView.image
+        
+        let tvShowViewController = TvShowViewController()
+        tvShowViewController.itemImage = image
+        tvShowViewController.tvShow = tvShow
+        
+        selectedRowIndexPath = indexPath
+        
+        navigationController?.pushViewController(tvShowViewController, animated: true)
     }
+}
+
+// MARK: - UINavigationControllerDelegate
+
+extension FeedViewController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if operation == .push {
+            return self.pushAnimator
+        } else if operation == .pop {
+            return self.popAnimator
+        }
+        
+        return nil
+    }
+}
+
+// MARK: - FeedItemsDataSourceDelegate 
+
+extension FeedViewController: FeedItemsDataSourceDelegate {
+    
+    func feedItemsDataSource(dataSource: FeedItemsDataSource, onFavorite favorite: Bool) {
+        showFavoritedConfirmation(favorited: favorite)
+    }
+    
 }
