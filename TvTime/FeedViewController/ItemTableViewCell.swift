@@ -104,8 +104,8 @@ class ItemTableViewCell: UITableViewCell {
         itemImageView.widthAnchor.constraint(equalToConstant: width).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: height).isActive = true
         
-        favoriteButton.widthAnchor.constraint(equalToConstant: 26.4).isActive = true
-        favoriteButton.heightAnchor.constraint(equalToConstant: 25.2).isActive = true
+        favoriteButton.widthAnchor.constraint(equalToConstant: 29.04).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: 27.72).isActive = true
         
         stackView.pinEdgesToSuperview(margin: 10)
     }
