@@ -56,6 +56,17 @@ class SearchViewController: UIViewController {
         tableView.dataSource = searchItemsDataSource
         tableView.reloadData()
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onScreenTap))
+        view.addGestureRecognizer(tapGestureRecognizer)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let searchBar = navigationItem.titleView
+        let searchBarTextField = searchBar?.value(forKey: "searchField") as? UITextField
+        searchBarTextField?.text = ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -69,6 +80,15 @@ class SearchViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - User Interaction
+    
+    func onScreenTap() {
+        
+        let searchBar = navigationItem.titleView
+        let textField = searchBar?.value(forKey: "searchField") as? UITextField
+        textField?.resignFirstResponder()
     }
     
 
