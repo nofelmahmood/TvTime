@@ -83,39 +83,27 @@ extension UIView {
     }
     
     func pinTopToSuperview() {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        topAnchor.constraint(equalTo: superview!.topAnchor).isActive = true
     }
     
     func pinTopToSuperview(margin: CGFloat) {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        topAnchor.constraint(equalTo: view.topAnchor, constant: margin).isActive = true
+        topAnchor.constraint(equalTo: superview!.topAnchor, constant: margin).isActive = true
+    }
+    
+    func pinBottomToSuperview(margin: CGFloat) {
+        bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: -margin).isActive = true
     }
     
     func pinLeadingToSuperview() {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor).isActive = true
     }
     
     func pinLeadingToSuperview(margin: CGFloat) {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: margin).isActive = true
+    }
+    
+    func pinTrailingToSuperview(margin: CGFloat) {
+        superview!.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin).isActive = true
     }
     
     func pinLeadingToTrailing(ofView view: UIView, margin: CGFloat) {
