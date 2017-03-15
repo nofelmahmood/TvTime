@@ -40,6 +40,11 @@
 		3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9471E75E81400364284 /* SearchViewController.swift */; };
 		3EFCD94A1E766F4A00364284 /* SearchItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */; };
 		3EFCD9511E769A0600364284 /* FavoriteConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9501E769A0600364284 /* FavoriteConfirmationView.swift */; };
+		3EFCD9531E76C14600364284 /* ScheduleItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9521E76C14600364284 /* ScheduleItemsDataSource.swift */; };
+		3EFCD9551E77BA1D00364284 /* TvMazeTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9541E77BA1D00364284 /* TvMazeTvShow.swift */; };
+		3EFCD9571E77CF7000364284 /* Trakt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9561E77CF7000364284 /* Trakt.swift */; };
+		3EFCD95C1E77DDD400364284 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD95B1E77DDD400364284 /* WebViewController.swift */; };
+		3EFCD9711E79261300364284 /* DecodableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFCD9701E79261300364284 /* DecodableModel.swift */; };
 		B1D19BA7B002D15E4E58165D /* Pods_TvTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +98,11 @@
 		3EFCD9471E75E81400364284 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = SearchViewController/SearchViewController.swift; sourceTree = "<group>"; };
 		3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchItemsDataSource.swift; path = SearchViewController/SearchItemsDataSource.swift; sourceTree = "<group>"; };
 		3EFCD9501E769A0600364284 /* FavoriteConfirmationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoriteConfirmationView.swift; path = FeedViewController/FavoriteConfirmationView.swift; sourceTree = "<group>"; };
+		3EFCD9521E76C14600364284 /* ScheduleItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleItemsDataSource.swift; path = ScheduleViewController/ScheduleItemsDataSource.swift; sourceTree = "<group>"; };
+		3EFCD9541E77BA1D00364284 /* TvMazeTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvMazeTvShow.swift; path = Models/TvMazeTvShow.swift; sourceTree = "<group>"; };
+		3EFCD9561E77CF7000364284 /* Trakt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Trakt.swift; path = Helpers/Trakt.swift; sourceTree = "<group>"; };
+		3EFCD95B1E77DDD400364284 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = WebViewController/WebViewController.swift; sourceTree = "<group>"; };
+		3EFCD9701E79261300364284 /* DecodableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecodableModel.swift; path = Models/DecodableModel.swift; sourceTree = "<group>"; };
 		8A8AE6B250F9E93928F74FBF /* Pods_TvTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TvTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B388DDCFB2277A2726D63F29 /* Pods-TvTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TvTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-TvTime/Pods-TvTime.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,6 +173,7 @@
 				3EACB1411E71476700C5AFA9 /* ScheduleViewController */,
 				3EC214F61E71462E00433E9D /* FavoritesViewController */,
 				3E4298411E72BF0700FAD65E /* TvShowViewController */,
+				3EFCD9581E77DD3900364284 /* WebViewController */,
 				3E57BA131E7027AB004A4CD3 /* FeedViewController */,
 				3E57B9F91E70163F004A4CD3 /* AppDelegate.swift */,
 				3E57BA001E70163F004A4CD3 /* Assets.xcassets */,
@@ -179,6 +190,8 @@
 				3EFCD9361E75652600364284 /* IMDBTvShow.swift */,
 				3EFCD93A1E7583B300364284 /* Credit.swift */,
 				3EFCD93E1E75942000364284 /* Season.swift */,
+				3EFCD9541E77BA1D00364284 /* TvMazeTvShow.swift */,
+				3EFCD9701E79261300364284 /* DecodableModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -189,6 +202,7 @@
 				3E57BA111E7021F1004A4CD3 /* Constants.swift */,
 				3E1C8F4D1E705C2D00832E33 /* UIView+Constraints.swift */,
 				3EFCD9381E7577D400364284 /* UIImage+Helpers.swift */,
+				3EFCD9561E77CF7000364284 /* Trakt.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -218,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */,
+				3EFCD9521E76C14600364284 /* ScheduleItemsDataSource.swift */,
 			);
 			name = ScheduleViewController;
 			sourceTree = "<group>";
@@ -238,6 +253,14 @@
 				3EFCD9491E766F4A00364284 /* SearchItemsDataSource.swift */,
 			);
 			name = SearchViewController;
+			sourceTree = "<group>";
+		};
+		3EFCD9581E77DD3900364284 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3EFCD95B1E77DDD400364284 /* WebViewController.swift */,
+			);
+			name = WebViewController;
 			sourceTree = "<group>";
 		};
 		7CE739C1C9FB698F91B4A138 /* Pods */ = {
@@ -391,8 +414,10 @@
 				3EFCD9451E75DA9A00364284 /* TvShowSeasonTableViewCell.swift in Sources */,
 				3EFCD9351E754C6500364284 /* TvShowOverviewTableViewCell.swift in Sources */,
 				3E57FD931E70794D00F9BA8A /* TvShow.swift in Sources */,
+				3EFCD9571E77CF7000364284 /* Trakt.swift in Sources */,
 				3EC214F91E71468200433E9D /* FavoritesViewController.swift in Sources */,
 				3EFCD9371E75652600364284 /* IMDBTvShow.swift in Sources */,
+				3EFCD9531E76C14600364284 /* ScheduleItemsDataSource.swift in Sources */,
 				3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */,
 				3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */,
 				3E4298431E72BF2D00FAD65E /* TvShowViewController.swift in Sources */,
@@ -404,14 +429,17 @@
 				3EFCD9511E769A0600364284 /* FavoriteConfirmationView.swift in Sources */,
 				3ED43ED71E72EBD400F46F6D /* TvShowDataSource.swift in Sources */,
 				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
+				3EFCD9711E79261300364284 /* DecodableModel.swift in Sources */,
 				3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */,
 				3ED43ED91E72EC7300F46F6D /* TvShowDetailTableViewCell.swift in Sources */,
 				3EFCD93F1E75942000364284 /* Season.swift in Sources */,
 				3E57B9FA1E70163F004A4CD3 /* AppDelegate.swift in Sources */,
 				3E57BA121E7021F1004A4CD3 /* Constants.swift in Sources */,
 				3E6C41F21E727F2500939DE5 /* FavoritesItemsDataSource.swift in Sources */,
+				3EFCD9551E77BA1D00364284 /* TvMazeTvShow.swift in Sources */,
 				3EFCD93B1E7583B300364284 /* Credit.swift in Sources */,
 				3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */,
+				3EFCD95C1E77DDD400364284 /* WebViewController.swift in Sources */,
 				3EFCD9431E75D7BD00364284 /* TvShowCastHeaderView.swift in Sources */,
 				3EFCD94A1E766F4A00364284 /* SearchItemsDataSource.swift in Sources */,
 			);
