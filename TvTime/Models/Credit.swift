@@ -7,26 +7,30 @@
 //
 
 import UIKit
-import ObjectMapper
+import Decodable
 
-struct Credit: Mappable {
- 
-    var characterName: String!
-    var creditID: String!
-    var id: Int32!
-    var name: String!
-    var thumbnailURL: String!
-    var order: Int!
-
-    init?(map: Map) {}
+struct Credit {
     
-    mutating func mapping(map: Map) {
+    let characterName: String!
+    let creditID: String!
+    let id: Int32!
+    let name: String!
+    let thumbnailURL: String!
+    let order: Int32!
+    
+}
+
+extension Credit: Decodable {
+    
+    static func decode(_ json: Any) throws -> Credit {
         
-        characterName <- map["character"]
-        creditID <- map["credit_id"]
-        id <- map["id"]
-        name <- map["name"]
-        thumbnailURL <- map["profile_path"]
-        order <- map["order"]
+        return try Credit(
+            characterName: json => "character",
+            creditID: json => "credit_id",
+            id: json => "id",
+            name: json => "name",
+            thumbnailURL: json => "profile_path",
+            order: json => "order"
+        )
     }
 }
