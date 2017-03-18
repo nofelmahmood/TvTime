@@ -94,7 +94,7 @@ class ItemTableViewCell: UITableViewCell {
             if favorited {
                 favoriteButton.setImage(UIImage(named: "favorites_fill"), for: .normal)
             } else {
-                favoriteButton.setImage(UIImage(named: "favorites_large"), for: .normal)
+                favoriteButton.setImage(UIImage(named: "favorites_medium"), for: .normal)
             }
         }
     }
