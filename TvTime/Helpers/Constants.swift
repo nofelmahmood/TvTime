@@ -27,9 +27,19 @@ struct APIEndPoint {
     static let tv = "https://api.themoviedb.org/3/tv"
     static let search = "https://api.themoviedb.org/3/search/tv"
     static let imdb = "http://www.omdbapi.com/"
+    static let omdb = "http://www.omdbapi.com/"
     
     static let traktAuthorize = "https://api.trakt.tv/oauth/authorize"
     static let traktToken = "https://api.trakt.tv/oauth/token"
+    static let traktPopular = "https://api.trakt.tv/shows/popular"
+    static let traktTrending = "https://api.trakt.tv/shows/trending"
+    static let traktAnticipated = "https://api.trakt.tv/shows/anticipated"
+}
+
+struct TraktTvShowsType {
+    static let popular = "Popular"
+    static let trending = "Trending"
+    static let anticipated = "Anticipated"
 }
 
 struct Color {
