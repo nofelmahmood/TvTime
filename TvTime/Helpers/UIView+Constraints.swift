@@ -50,36 +50,24 @@ extension UIView {
     }
     
     func pinEdges(toView view: UIView) {
-        
-        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor).isActive = true
+        superview!.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: superview!.topAnchor).isActive = true
         bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
     }
     
     func pinEdgesToSuperview() {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor).isActive = true
+        superview!.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: superview!.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: superview!.bottomAnchor).isActive = true
     }
     
     func pinEdgesToSuperview(margin: CGFloat) {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin).isActive = true
-        view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin).isActive = true
-        topAnchor.constraint(equalTo: view.topAnchor, constant: margin).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -margin).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: margin).isActive = true
+        superview!.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin).isActive = true
+        topAnchor.constraint(equalTo: superview!.topAnchor, constant: margin).isActive = true
+        bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: -margin).isActive = true
     }
     
     func pinTopToSuperview() {
@@ -107,46 +95,25 @@ extension UIView {
     }
     
     func pinLeadingToTrailing(ofView view: UIView, margin: CGFloat) {
-        
         leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: margin).isActive = true
     }
     
     func pinLeadingAndTopToSuperview(margin: CGFloat) {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: margin).isActive = true
-        topAnchor.constraint(equalTo: view.topAnchor, constant: margin).isActive = true
+        leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: margin).isActive = true
+        topAnchor.constraint(equalTo: superview!.topAnchor, constant: margin).isActive = true
     }
     
     func pinTopAndBottomToSuperview(margin: CGFloat) {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        topAnchor.constraint(equalTo: view.topAnchor, constant: margin).isActive = true
-        bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -margin).isActive = true
+        topAnchor.constraint(equalTo: superview!.topAnchor, constant: margin).isActive = true
+        bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: -margin).isActive = true
     }
     
     func centerHorizontally() {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        centerXAnchor.constraint(equalTo: superview!.centerXAnchor).isActive = true
     }
     
     func centerVertically() {
-        
-        guard let view = superview else {
-            return
-        }
-        
-        centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: superview!.centerYAnchor).isActive = true
     }
     
 }
