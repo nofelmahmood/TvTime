@@ -32,6 +32,9 @@ class FeedViewController: UIViewController {
     
     var selectedRowIndexPath: IndexPath!
     
+    var tableViewThreshold: CGFloat = 250
+    var loadingMore = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -79,11 +82,13 @@ class FeedViewController: UIViewController {
         
         tableViewActivityIndicatorView.startAnimating()
         tableView.alpha = 0
+        loadingMore = true
         feedItemsDataSource.prepare(forSegment: segmentedControl.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
                 
                 self.tableView.reloadData()
                 self.tableViewActivityIndicatorView.stopAnimating()
+                self.loadingMore = false
                 
                 UIView.animate(withDuration: 0.5, animations: {
                     self.tableView.alpha = 1
@@ -91,7 +96,6 @@ class FeedViewController: UIViewController {
             })
         
         self.navigationController?.delegate = self
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,10 +109,12 @@ class FeedViewController: UIViewController {
         
         tableViewActivityIndicatorView.startAnimating()
         tableView.alpha = 0
+        self.loadingMore = true
         feedItemsDataSource.prepare(forSegment: sender.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
                 self.tableView.reloadData()
                 self.tableViewActivityIndicatorView.stopAnimating()
+                self.loadingMore = false
                 
                 UIView.animate(withDuration: 0.5, animations: {
                     self.tableView.alpha = 1
@@ -176,11 +182,39 @@ extension FeedViewController: UITableViewDelegate {
         
         let tvShowViewController = TvShowViewController()
         tvShowViewController.itemImage = image
-        tvShowViewController.tvShow = tvShow
+       // tvShowViewController.tvShow = tvShow
         
         selectedRowIndexPath = indexPath
         
         navigationController?.pushViewController(tvShowViewController, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        
+        if !loadingMore && (maximumOffset - contentOffset <= tableViewThreshold) {
+            
+            let segmentedControl = navigationItem.titleView as! UISegmentedControl
+            loadingMore = true
+            feedItemsDataSource.loadNextPage(forSegment: segmentedControl.selectedSegmentIndex)
+                .then(execute: { (result) -> Void in
+                    
+                    self.loadingMore = false
+                    let currentPage = (result as! Int) - 1
+                    let startRange = currentPage * 20
+                    
+                    var indexPaths = [IndexPath]()
+                    
+                    for item in 0...19 {
+                        let indexPath = IndexPath(item: startRange + item, section: 0)
+                        indexPaths.append(indexPath)
+                    }
+                    
+                    self.tableView.reloadData()
+                })
+        }
+        
     }
 }
 
