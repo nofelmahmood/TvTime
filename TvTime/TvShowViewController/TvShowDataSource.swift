@@ -79,10 +79,12 @@ class TvShowDataSource: NSObject {
                 if let imdbID = json["imdb_id"] as? String {
                     let url = "\(APIEndPoint.imdb)?i=\(imdbID)"
                     
-                    Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseObject(completionHandler: { (response: DataResponse<IMDBTvShow>) in
+                    Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
                         
                         if response.result.isSuccess {
-                            resolve(response.result.value!)
+                            let json = response.result.value as! [String: AnyObject]
+                            let imdbData = try? IMDBTvShow.decode(json)
+                            resolve(imdbData!)
                         } else {
                             reject(response.error!)
                         }
@@ -108,10 +110,15 @@ class TvShowDataSource: NSObject {
         
         let promise = Promise<[Season]>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "seasons", completionHandler: { (response: DataResponse<[Season]>) in
-               
+            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
+                
                 if response.result.isSuccess {
-                    resolve(response.result.value!)
+                    
+                    let json = response.result.value as! [String: AnyObject]
+                    let jsonSeasons = json["seasons"]
+                    let seasons = try? [Season].decode(jsonSeasons!)
+                    resolve(seasons!)
+                    
                 } else {
                     reject(response.error!)
                 }
@@ -128,10 +135,16 @@ class TvShowDataSource: NSObject {
         
         let promise = Promise<[Credit]>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "cast", completionHandler: { (response: DataResponse<[Credit]>) in
+            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
                 
                 if response.result.isSuccess {
-                    resolve(response.result.value!)
+                    
+                    let json = response.result.value as! [String: AnyObject]
+                    let jsonCredits = json["cast"]
+                    print("JSONCAST \(jsonCredits)")
+                    let credits = try? [Credit].decode(jsonCredits!)
+                    
+                    resolve(credits!)
                 } else {
                     reject(response.error!)
                 }
@@ -163,7 +176,7 @@ extension TvShowDataSource: UITableViewDataSource {
         }
         return 0
     }
-    
+ 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
