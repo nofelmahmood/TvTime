@@ -35,8 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let searchTabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 3)
         searchViewController.tabBarItem = searchTabBarItem
         
+        let settingsViewController = UINavigationController(rootViewController: SettingsViewController())
+        let settingsTabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settings"), tag: 4)
+        settingsViewController.tabBarItem = settingsTabBarItem
+        
         let tabBarController = UITabBarController()
-        tabBarController.setViewControllers([feedViewController, scheduleViewController, favoritesViewController, searchViewController], animated: true)
+        tabBarController.setViewControllers([feedViewController, scheduleViewController, favoritesViewController, searchViewController, settingsViewController], animated: true)
         tabBarController.selectedIndex = 0
         
         window = UIWindow(frame: UIScreen.main.bounds)
