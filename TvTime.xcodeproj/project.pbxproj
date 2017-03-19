@@ -10,6 +10,8 @@
 		3E1C8F4E1E705C2D00832E33 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C8F4D1E705C2D00832E33 /* UIView+Constraints.swift */; };
 		3E1D9E2A1E7BEF180020B258 /* TraktTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E291E7BEF180020B258 /* TraktTvShow.swift */; };
 		3E1D9E2C1E7D4E920020B258 /* OMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E2B1E7D4E920020B258 /* OMDB.swift */; };
+		3E1D9E2F1E7DA8960020B258 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E2E1E7DA8960020B258 /* SettingsViewController.swift */; };
+		3E1D9E311E7E47500020B258 /* TraktSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E301E7E47500020B258 /* TraktSeason.swift */; };
 		3E4298431E72BF2D00FAD65E /* TvShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4298421E72BF2D00FAD65E /* TvShowViewController.swift */; };
 		3E4298451E72C1F400FAD65E /* PushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4298441E72C1F400FAD65E /* PushAnimator.swift */; };
 		3E4298491E72E6E600FAD65E /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4298481E72E6E600FAD65E /* PopAnimator.swift */; };
@@ -70,6 +72,8 @@
 		3E1C8F4D1E705C2D00832E33 /* UIView+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Constraints.swift"; path = "Helpers/UIView+Constraints.swift"; sourceTree = "<group>"; };
 		3E1D9E291E7BEF180020B258 /* TraktTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraktTvShow.swift; path = Models/TraktTvShow.swift; sourceTree = "<group>"; };
 		3E1D9E2B1E7D4E920020B258 /* OMDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OMDB.swift; path = Helpers/OMDB.swift; sourceTree = "<group>"; };
+		3E1D9E2E1E7DA8960020B258 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = SettingsViewController/SettingsViewController.swift; sourceTree = "<group>"; };
+		3E1D9E301E7E47500020B258 /* TraktSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraktSeason.swift; path = Models/TraktSeason.swift; sourceTree = "<group>"; };
 		3E4298421E72BF2D00FAD65E /* TvShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowViewController.swift; path = TvShowViewController/TvShowViewController.swift; sourceTree = "<group>"; };
 		3E4298441E72C1F400FAD65E /* PushAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushAnimator.swift; path = FeedViewController/PushAnimator.swift; sourceTree = "<group>"; };
 		3E4298481E72E6E600FAD65E /* PopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopAnimator.swift; path = FeedViewController/PopAnimator.swift; sourceTree = "<group>"; };
@@ -135,6 +139,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3E1D9E2D1E7DA8710020B258 /* SettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3E1D9E2E1E7DA8960020B258 /* SettingsViewController.swift */,
+			);
+			name = SettingsViewController;
+			sourceTree = "<group>";
+		};
 		3E4298411E72BF0700FAD65E /* TvShowViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +188,7 @@
 				3EFCD9461E75E7FB00364284 /* SearchViewController */,
 				3EACB1411E71476700C5AFA9 /* ScheduleViewController */,
 				3EC214F61E71462E00433E9D /* FavoritesViewController */,
+				3E1D9E2D1E7DA8710020B258 /* SettingsViewController */,
 				3E4298411E72BF0700FAD65E /* TvShowViewController */,
 				3EFCD9851E7952FB00364284 /* LoginViewController */,
 				3EFCD9581E77DD3900364284 /* WebViewController */,
@@ -197,6 +210,7 @@
 				3EFCD93E1E75942000364284 /* Season.swift */,
 				3EFCD9541E77BA1D00364284 /* TvMazeTvShow.swift */,
 				3E1D9E291E7BEF180020B258 /* TraktTvShow.swift */,
+				3E1D9E301E7E47500020B258 /* TraktSeason.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -447,9 +461,11 @@
 				3ED43ED71E72EBD400F46F6D /* TvShowDataSource.swift in Sources */,
 				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
 				3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */,
+				3E1D9E2F1E7DA8960020B258 /* SettingsViewController.swift in Sources */,
 				3ED43ED91E72EC7300F46F6D /* TvShowDetailTableViewCell.swift in Sources */,
 				3EFCD93F1E75942000364284 /* Season.swift in Sources */,
 				3E57B9FA1E70163F004A4CD3 /* AppDelegate.swift in Sources */,
+				3E1D9E311E7E47500020B258 /* TraktSeason.swift in Sources */,
 				3E57BA121E7021F1004A4CD3 /* Constants.swift in Sources */,
 				3E6C41F21E727F2500939DE5 /* FavoritesItemsDataSource.swift in Sources */,
 				3EFCD9551E77BA1D00364284 /* TvMazeTvShow.swift in Sources */,
