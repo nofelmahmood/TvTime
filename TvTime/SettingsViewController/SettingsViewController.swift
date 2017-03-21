@@ -14,6 +14,11 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        tabBarController?.tabBar.barTintColor = UIColor.black
+        tabBarController?.tabBar.tintColor = Color.silver
+        navigationController?.navigationBar.barTintColor = UIColor.black
+        navigationController?.navigationBar.tintColor = Color.silver
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.silver]
     }
 
     override func didReceiveMemoryWarning() {
