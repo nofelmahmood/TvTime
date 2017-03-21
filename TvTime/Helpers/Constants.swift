@@ -34,6 +34,7 @@ struct APIEndPoint {
     static let traktPopular = "https://api.trakt.tv/shows/popular"
     static let traktTrending = "https://api.trakt.tv/shows/trending"
     static let traktAnticipated = "https://api.trakt.tv/shows/anticipated"
+    static let traktShows = "https://api.trakt.tv/shows"
 }
 
 struct TraktTvShowsType {
@@ -44,6 +45,8 @@ struct TraktTvShowsType {
 
 struct Color {
     static let silver = UIColor(colorLiteralRed: 192/255, green: 192/255, blue: 192/255, alpha: 1)
+    static let cellBackground = UIColor(colorLiteralRed: 11/255, green: 11/255, blue: 11/255, alpha: 1)
+    static let cellBorder = UIColor(colorLiteralRed: 25/255, green: 24/255, blue: 25/255, alpha: 1)
 }
 
 struct Font {
