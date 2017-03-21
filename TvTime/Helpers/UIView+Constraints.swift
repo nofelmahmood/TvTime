@@ -90,6 +90,10 @@ extension UIView {
         leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: margin).isActive = true
     }
     
+    func pinTrailingToSuperview() {
+        superview!.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+    }
+    
     func pinTrailingToSuperview(margin: CGFloat) {
         superview!.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin).isActive = true
     }
