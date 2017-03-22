@@ -41,13 +41,25 @@ class TvShowOverviewTableViewCell: UITableViewCell {
         return sV
     }()
     
+    lazy var mainView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Color.cellBackground
+        view.layer.borderColor = Color.cellBorder.cgColor
+        view.layer.borderWidth = 1
+        
+        return view
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = UIColor.black
         
-        contentView.addSubview(stackView)
+        mainView.addSubview(stackView)
+        contentView.addSubview(mainView)
         
+        mainView.pinEdgesToSuperview(margin: 8)
         stackView.pinEdgesToSuperview(margin: 8)
     }
     
