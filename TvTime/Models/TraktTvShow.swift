@@ -25,6 +25,7 @@ struct TraktTvShow: Decodable {
     let imdbID: String!
     let tmdbID: Int16!
     let tvdbID: Int16!
+    let slug: String!
     let country: String!
     let genres: [String]!
 
@@ -45,6 +46,7 @@ struct TraktTvShow: Decodable {
             imdbID: json => "ids" => "imdb",
             tmdbID: json => "ids" => "tmdb",
             tvdbID: json => "ids" => "tvdb",
+            slug: json => "ids" => "slug",
             country: json => "country",
             genres: json => "genres"
         )
