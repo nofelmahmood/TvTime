@@ -12,5 +12,6 @@ target 'TvTime' do
       pod 'AlamofireObjectMapper', '~> 4.0'
       pod 'AlamofireImage', '~> 3.1'
       pod 'Decodable'
+      pod 'Moya'
 
 end

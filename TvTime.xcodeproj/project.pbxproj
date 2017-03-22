@@ -18,6 +18,9 @@
 		3E1D9E3A1E7FCB410020B258 /* TraktEpisodeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E391E7FCB410020B258 /* TraktEpisodeDetail.swift */; };
 		3E1D9E3C1E7FD3260020B258 /* EpisodeDetailDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E3B1E7FD3260020B258 /* EpisodeDetailDataSource.swift */; };
 		3E1D9E3E1E7FE1E90020B258 /* FeedItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E3D1E7FE1E90020B258 /* FeedItemCollectionViewCell.swift */; };
+		3E1D9E401E812E470020B258 /* EpisodeDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E3F1E812E470020B258 /* EpisodeDetailTableViewCell.swift */; };
+		3E1D9E421E814A6B0020B258 /* TvShowRelatedShowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E411E814A6B0020B258 /* TvShowRelatedShowsTableViewCell.swift */; };
+		3E1D9E451E81512B0020B258 /* TvShowRelatedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1D9E441E81512B0020B258 /* TvShowRelatedCollectionViewCell.swift */; };
 		3E4298431E72BF2D00FAD65E /* TvShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4298421E72BF2D00FAD65E /* TvShowViewController.swift */; };
 		3E4298451E72C1F400FAD65E /* PushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4298441E72C1F400FAD65E /* PushAnimator.swift */; };
 		3E4298491E72E6E600FAD65E /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4298481E72E6E600FAD65E /* PopAnimator.swift */; };
@@ -86,6 +89,9 @@
 		3E1D9E391E7FCB410020B258 /* TraktEpisodeDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraktEpisodeDetail.swift; path = Models/TraktEpisodeDetail.swift; sourceTree = "<group>"; };
 		3E1D9E3B1E7FD3260020B258 /* EpisodeDetailDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailDataSource.swift; path = EpisodeDetailViewController/EpisodeDetailDataSource.swift; sourceTree = "<group>"; };
 		3E1D9E3D1E7FE1E90020B258 /* FeedItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedItemCollectionViewCell.swift; path = FeedViewController/FeedItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		3E1D9E3F1E812E470020B258 /* EpisodeDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EpisodeDetailTableViewCell.swift; path = EpisodeDetailViewController/EpisodeDetailTableViewCell.swift; sourceTree = "<group>"; };
+		3E1D9E411E814A6B0020B258 /* TvShowRelatedShowsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowRelatedShowsTableViewCell.swift; path = TvShowViewController/TvShowRelatedShowsTableViewCell.swift; sourceTree = "<group>"; };
+		3E1D9E441E81512B0020B258 /* TvShowRelatedCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowRelatedCollectionViewCell.swift; path = TvShowViewController/TvShowRelatedCollectionViewCell.swift; sourceTree = "<group>"; };
 		3E4298421E72BF2D00FAD65E /* TvShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowViewController.swift; path = TvShowViewController/TvShowViewController.swift; sourceTree = "<group>"; };
 		3E4298441E72C1F400FAD65E /* PushAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PushAnimator.swift; path = FeedViewController/PushAnimator.swift; sourceTree = "<group>"; };
 		3E4298481E72E6E600FAD65E /* PopAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PopAnimator.swift; path = FeedViewController/PopAnimator.swift; sourceTree = "<group>"; };
@@ -164,6 +170,7 @@
 			children = (
 				3E1D9E371E7FA6A90020B258 /* EpisodeDetailViewController.swift */,
 				3E1D9E3B1E7FD3260020B258 /* EpisodeDetailDataSource.swift */,
+				3E1D9E3F1E812E470020B258 /* EpisodeDetailTableViewCell.swift */,
 			);
 			name = EpisodeDetailViewController;
 			sourceTree = "<group>";
@@ -179,6 +186,8 @@
 				3EFCD9421E75D7BD00364284 /* TvShowHeaderFooterView.swift */,
 				3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */,
 				3E1D9E341E7F9B4C0020B258 /* TvShowEpisodeTableViewCell.swift */,
+				3E1D9E411E814A6B0020B258 /* TvShowRelatedShowsTableViewCell.swift */,
+				3E1D9E441E81512B0020B258 /* TvShowRelatedCollectionViewCell.swift */,
 			);
 			name = TvShowViewController;
 			sourceTree = "<group>";
@@ -466,6 +475,7 @@
 			files = (
 				3E4298491E72E6E600FAD65E /* PopAnimator.swift in Sources */,
 				3E1D9E381E7FA6A90020B258 /* EpisodeDetailViewController.swift in Sources */,
+				3E1D9E451E81512B0020B258 /* TvShowRelatedCollectionViewCell.swift in Sources */,
 				3E1D9E2A1E7BEF180020B258 /* TraktTvShow.swift in Sources */,
 				3EFCD9451E75DA9A00364284 /* TvShowSeasonTableViewCell.swift in Sources */,
 				3E1D9E2C1E7D4E920020B258 /* OMDB.swift in Sources */,
@@ -475,6 +485,7 @@
 				3EFCD9571E77CF7000364284 /* Trakt.swift in Sources */,
 				3EC214F91E71468200433E9D /* FavoritesViewController.swift in Sources */,
 				3EFCD9371E75652600364284 /* IMDBTvShow.swift in Sources */,
+				3E1D9E421E814A6B0020B258 /* TvShowRelatedShowsTableViewCell.swift in Sources */,
 				3EFCD9531E76C14600364284 /* ScheduleItemsDataSource.swift in Sources */,
 				3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */,
 				3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */,
@@ -488,6 +499,7 @@
 				3EFCD9391E7577D400364284 /* UIImage+Helpers.swift in Sources */,
 				3E4298451E72C1F400FAD65E /* PushAnimator.swift in Sources */,
 				3EFCD9511E769A0600364284 /* FavoriteConfirmationView.swift in Sources */,
+				3E1D9E401E812E470020B258 /* EpisodeDetailTableViewCell.swift in Sources */,
 				3ED43ED71E72EBD400F46F6D /* TvShowDataSource.swift in Sources */,
 				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
 				3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */,
