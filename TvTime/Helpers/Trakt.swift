@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import ObjectMapper
 import PromiseKit
+import Moya
 
 class Trakt {
     
@@ -59,6 +60,18 @@ class Trakt {
         return AnyPromise(promise)
     }
     
+    func provider() -> MoyaProvider<TraktService> {
+        
+        let endpointClosure = { (target: TraktService) -> Endpoint<TraktService> in
+            let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
+            let headers = ["Content-Type": "application/json", "trakt-api-version": "2", "trakt-api-key": API.traktClientID]
+            
+            return defaultEndpoint.adding(newHTTPHeaderFields: headers)
+        }
+        
+        return MoyaProvider<TraktService>(endpointClosure: endpointClosure)
+    }
+    
     func getTvShows(showsType: String, page: Int) -> AnyPromise {
         
         var url = ""
@@ -80,25 +93,35 @@ class Trakt {
         
         url = "\(url)?extended=full&page=\(page)&limit=\(limit)"
         
+        let provider = self.provider()
+        
         let promise = Promise<[TraktTvShow]>(resolvers: { resolve, reject in
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers).responseJSON(completionHandler: { response in
+            provider.request(.tvShows(showsType: showsType, extendedInfo: "full", page: page, limit: limit), completion: { result in
                 
-                if response.result.isSuccess {
-                    var json = response.result.value as! [[String: AnyObject]]
-                    if showsType == TraktTvShowsType.trending || showsType == TraktTvShowsType.anticipated {
-                        json = json.map({ $0["show"] as! [String: AnyObject] })
-                    }
-                    let tvShows = try? [TraktTvShow].decode(json)
+                switch result {
+                case let .success(moyaResponse):
+                    let data = moyaResponse.data
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
                     
-                    if let tvShows = tvShows {
-                        resolve(tvShows)
+                    if let json = json as? [[String: AnyObject]] {
+                        
+                        if showsType == TraktTvShowsType.trending || showsType == TraktTvShowsType.anticipated {
+                            let showsJson = json.map({ $0["show"] as! [String: AnyObject] })
+                            let tvShows = try? [TraktTvShow].decode(showsJson)
+                            resolve(tvShows!)
+                            
+                        } else {
+                            let tvShows = try? [TraktTvShow].decode(json)
+                            resolve(tvShows!)
+                        }
+                        
                     } else {
                         let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
                         reject(error)
                     }
                     
-                } else {
-                    reject(response.error!)
+                case let .failure(error):
+                    reject(error)
                 }
             })
         })
@@ -106,28 +129,29 @@ class Trakt {
         return AnyPromise(promise)
     }
     
+    
     func getSeasons(slug: String) -> AnyPromise {
         
-        let url = "\(APIEndPoint.traktShows)/\(slug)/seasons?extended=episodes"
-        let headers = ["Content-Type": "application/json", "trakt-api-version": "2", "trakt-api-key": API.traktClientID]
-    
+        let provider = self.provider()
+        
         let promise = Promise<[TraktSeason]>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers).responseJSON(completionHandler: { response in
+            provider.request(.seasons(slug: slug, extendedInfo: "episodes"), completion: { result in
                 
-                if response.result.isSuccess {
+                switch result {
+                case let .success(moyaResponse):
+                    let data = moyaResponse.data
                     
-                    let json = response.result.value as! [[String: AnyObject]]
-                    let seasons = try? [TraktSeason].decode(json)
-                    
-                    if let seasons = seasons {
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [[String: AnyObject]]
+                    if let json = json, let seasons = try? [TraktSeason].decode(json) {
                         resolve(seasons)
                     } else {
-                        let error = NSError(domain: "com.error.failed", code: 0, userInfo: nil)
+                        let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
                         reject(error)
                     }
-                } else {
-                    reject(response.error!)
+                
+                case let .failure(error):
+                    reject(error)
                 }
             })
         })
@@ -137,29 +161,28 @@ class Trakt {
     
     func getEpisodeDetail(slug: String, seasonNumber: Int, episodeNumber: Int) -> AnyPromise {
         
-        let url = "\(APIEndPoint.traktShows)/\(slug)/seasons/\(seasonNumber)/episodes/\(episodeNumber)?extended=full"
-        let headers = ["Content-Type": "application/json", "trakt-api-version": "2", "trakt-api-key": API.traktClientID]
+        let provider = self.provider()
         
         let promise = Promise<TraktEpisodeDetail>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers)
-                .responseJSON(completionHandler: { response in
+            provider.request(.episode(slug: slug, seasonNumber: seasonNumber, episodeNumber: episodeNumber, extendedInfo: "full"), completion: { result in
+                
+                switch result {
+                case let .success(moyaResponse):
+                    let data = moyaResponse.data
                     
-                    if response.result.isSuccess {
-                        let json = response.result.value as! [String: AnyObject]
-                        
-                        if let episodeDetail = try? TraktEpisodeDetail.decode(json) {
-                            resolve(episodeDetail)
-                            
-                        } else {
-                            let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
-                            reject(error)
-                        }
-
+                    let json = try? JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions(rawValue: 0))
+                    if let json = json, let episodeDetail = try? TraktEpisodeDetail.decode(json) {
+                        resolve(episodeDetail)
                     } else {
-                        reject(response.error!)
+                        let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
+                        reject(error)
                     }
-                })
+                    
+                case let .failure(error):
+                    reject(error)
+                }
+            })
         })
         
         return AnyPromise(promise)
@@ -167,25 +190,24 @@ class Trakt {
     
     func getRelatedTvShows(slug: String) -> AnyPromise {
         
-        let url = "\(APIEndPoint.traktShows)/\(slug)/related?extended=full"
+        let provider = self.provider()
         
         let promise = Promise<[TraktTvShow]>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
+            provider.request(.relatedTvShows(slug: slug, extendedInfo: "full"), completion: { result in
                 
-                if response.result.isSuccess {
-                    let json = response.result.value as! [[String: AnyObject]]
-                    let tvShows = try? [TraktTvShow].decode(json)
-                    
-                    if let tvShows = tvShows {
-                        resolve(tvShows)
+                switch result {
+                case let .success(moyaResponse):
+                    let data = moyaResponse.data
+                    let json = try? JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.init(rawValue: 0))
+                    if let json = json, let relatedTvShows = try? [TraktTvShow].decode(json) {
+                        resolve(relatedTvShows)
                     } else {
                         let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
                         reject(error)
                     }
-                    
-                } else {
-                    reject(response.error!)
+                case let .failure(error):
+                    reject(error)
                 }
             })
         })
