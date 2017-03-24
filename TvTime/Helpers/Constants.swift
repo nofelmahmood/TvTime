@@ -38,9 +38,9 @@ struct APIEndPoint {
 }
 
 struct TraktTvShowsType {
-    static let popular = "Popular"
-    static let trending = "Trending"
-    static let anticipated = "Anticipated"
+    static let popular = "popular"
+    static let trending = "trending"
+    static let anticipated = "anticipated"
 }
 
 struct Color {
