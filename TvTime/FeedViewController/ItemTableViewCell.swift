@@ -23,7 +23,8 @@ class ItemTableViewCell: UITableViewCell {
         sV.translatesAutoresizingMaskIntoConstraints = false
         sV.axis = .horizontal
         sV.distribution = .fillProportionally
-        sV.spacing = 8
+        sV.alignment = .top
+        sV.spacing = 12
         
         return sV
     }()
@@ -34,6 +35,16 @@ class ItemTableViewCell: UITableViewCell {
         label.font = UIFont(name: Font.name, size: 18)
         label.textColor = UIColor.white
         label.text = ""
+        label.numberOfLines = 0
+        
+        return label
+    }()
+    
+    lazy var timeAndNetworkLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: Font.name, size: 16)
+        label.textColor = Color.silver
         
         return label
     }()
@@ -49,12 +60,11 @@ class ItemTableViewCell: UITableViewCell {
     }()
     
     lazy var detailStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.nameAndFavoriteButtonSV, self.overviewLabel])
+        let stackView = UIStackView(arrangedSubviews: [self.nameAndFavoriteButtonSV])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.distribution = .fill
+        stackView.distribution = .fillProportionally
         stackView.alignment = .fill
-        stackView.spacing = 2
         
         return stackView
     }()
@@ -84,7 +94,7 @@ class ItemTableViewCell: UITableViewCell {
             if favorited {
                 favoriteButton.setImage(UIImage(named: "favorites_fill"), for: .normal)
             } else {
-                favoriteButton.setImage(UIImage(named: "favorites"), for: .normal)
+                favoriteButton.setImage(UIImage(named: "favorites_medium"), for: .normal)
             }
         }
     }
@@ -99,16 +109,20 @@ class ItemTableViewCell: UITableViewCell {
         
         contentView.addSubview(stackView)
         
-        let width: CGFloat = 90
-        let height: CGFloat = 125
+        let width: CGFloat = 99
+        let height: CGFloat = 137.5
         
         itemImageView.widthAnchor.constraint(equalToConstant: width).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: height).isActive = true
         
-        favoriteButton.widthAnchor.constraint(equalToConstant: 29.04).isActive = true
-        favoriteButton.heightAnchor.constraint(equalToConstant: 27.72).isActive = true
+        let favoriteButtonWidth: CGFloat = 35
+        let favoriteButtonHeight: CGFloat = 33
+        
+        favoriteButton.widthAnchor.constraint(equalToConstant: favoriteButtonWidth).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: favoriteButtonHeight).isActive = true
         
         stackView.pinEdgesToSuperview(margin: 10)
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -130,26 +144,34 @@ class ItemTableViewCell: UITableViewCell {
     
     // MARK: - Helpers
     
-    func setTvShow(tvShow: TvShow?, row: Int) {
+    func setTvShow(tvShow: TraktTvShow?, row: Int) {
         
         guard let tvShow = tvShow else {
             return
         }
         
-        nameLabel.text = tvShow.name
+        var timeAndNetworkText = ""
+        
+        if let airTime = tvShow.airTime {
+            timeAndNetworkText = "\(airTime) on \(tvShow.network!)"
+        } else {
+            timeAndNetworkText = "on \(tvShow.network!)"
+        }
+        
+        nameLabel.text = tvShow.title
+        timeAndNetworkLabel.text = timeAndNetworkText
         overviewLabel.text = tvShow.overview
-        favorited = tvShow.favorite
         tag = row
         itemImageView.image = nil
         
-        guard let thumbnailURL = tvShow.thumbnailURL else {
+       /* guard let thumbnailURL = tvShow.thumbnailURL else {
             return
         }
         
         let thumbnailFullURL = "\(APIEndPoint.image)\(thumbnailURL)"
         let url = URL(string: thumbnailFullURL)
         let thumbnailRequest = URLRequest(url: url!)
-        itemImageView.af_setImage(withURLRequest: thumbnailRequest)
+        itemImageView.af_setImage(withURLRequest: thumbnailRequest) */
     }
 
 }

@@ -75,7 +75,7 @@ class TvShowSeasonTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setSeason(season: Season?) {
+    func setSeason(season: TraktSeason?) {
         
         guard let season = season else {
             return
@@ -83,21 +83,7 @@ class TvShowSeasonTableViewCell: UITableViewCell {
         
         seasonPhotoImageView.image = nil
         
-        if let seasonThumbnailStringURL = season.thumbnailURL {
-            let stringURL = "\(APIEndPoint.image)\(seasonThumbnailStringURL)"
-            let url = URL(string: stringURL)!
-            
-            seasonPhotoImageView.af_setImage(withURL: url)
-        }
-        
         let titleLabel = seasonLabelsStackView.arrangedSubviews[0] as! UILabel
-        titleLabel.text = "Season \(season.order!)"
-        
-        let numberOfEpLabel = seasonLabelsStackView.arrangedSubviews[1] as! UILabel
-        numberOfEpLabel.text = "\(season.episodeCount!) episode"
-        
-        if season.episodeCount > 1 {
-            numberOfEpLabel.text = "\(numberOfEpLabel.text!)s"
-        }
+        titleLabel.text = "Season \(season.number!)"
     }
 }

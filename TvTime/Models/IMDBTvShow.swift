@@ -8,39 +8,42 @@
 
 import UIKit
 import ObjectMapper
+import Decodable
 
-struct IMDBTvShow: Mappable {
+struct IMDBTvShow: Decodable {
     
-    var rated: String!
-    var released: String!
-    var runtime: String!
-    var writer: String!
-    var year: String!
-    var rating: String!
-    var totalSeasons: String!
-    var plot: String!
-    var language: String!
-    var genre: String!
-    var director: String!
-    var country: String!
-    var awards: String!
+    let rated: String!
+    let released: String!
+    let runtime: String!
+    let writer: String!
+    let year: String!
+    let rating: String!
+    let totalSeasons: String!
+    let plot: String!
+    let language: String!
+    let genre: String!
+    let director: String!
+    let country: String!
+    let awards: String!
+    let poster: String!
     
-    init?(map: Map) {}
-    
-    mutating func mapping(map: Map) {
+    static func decode(_ json: Any) throws -> IMDBTvShow {
         
-        rated <- map["Rated"]
-        released <- map["Released"]
-        runtime <- map["Runtime"]
-        writer <- map["Writer"]
-        year <- map["Year"]
-        rating <- map["imdbRating"]
-        totalSeasons <- map["totalSeasons"]
-        plot <- map["Plot"]
-        language <- map["Language"]
-        genre <- map["Genre"]
-        director <- map["Director"]
-        country <- map["Country"]
-        awards <- map["Awards"]
+        return try IMDBTvShow(
+            rated: json => "Rated",
+            released: json => "Released",
+            runtime: json => "Runtime",
+            writer: json => "Writer",
+            year: json => "Year",
+            rating: json => "imdbRating",
+            totalSeasons: json => "totalSeasons",
+            plot: json => "Plot",
+            language: json => "Language",
+            genre: json => "Genre",
+            director: json => "Director",
+            country: json => "Country",
+            awards: json => "Awards",
+            poster: json => "Poster"
+        )
     }
 }

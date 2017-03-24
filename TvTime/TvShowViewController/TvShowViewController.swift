@@ -25,7 +25,7 @@ class TvShowViewController: UIViewController {
     }()
     
     var itemImage: UIImage?
-    var tvShow: TvShow?
+    var tvShow: TraktTvShow?
     
     let tvShowDataSource = TvShowDataSource()
     
@@ -49,9 +49,9 @@ class TvShowViewController: UIViewController {
         
         view.addSubview(tableView)
         
-        tableView.pinTopToSuperview()
         tableView.pinLeadingToSuperview(margin: 8)
         tableView.pinTrailingToSuperview(margin: 8)
+        tableView.pinTopToSuperview()
         tableView.pinBottomToSuperview(margin: 8)
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -61,28 +61,25 @@ class TvShowViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         
-        tableView.register(TvShowCastHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: TvShowCastHeaderView.self))
+        tableView.register(TvShowHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: String(describing: TvShowHeaderFooterView.self))
         tableView.register(TvShowDetailTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowDetailTableViewCell.self))
+        tableView.register(TvShowRelatedShowsTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowRelatedShowsTableViewCell.self))
         tableView.register(TvShowOverviewTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowOverviewTableViewCell.self))
         tableView.register(TvShowCreditTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowCreditTableViewCell.self))
         tableView.register(TvShowSeasonTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowSeasonTableViewCell.self))
+        tableView.register(TvShowEpisodeTableViewCell.self, forCellReuseIdentifier: String(describing: TvShowEpisodeTableViewCell.self))
         
         tableView.dataSource = tvShowDataSource
-        tableView.delegate = self
+        tableView.delegate = tvShowDataSource
         
-        tvShowDataSource.prepare(selectedTvShow: tvShow, posterImage: itemImage).then(execute: { (result) -> Void in
+        tvShowDataSource.prepare(selectedTvShow: tvShow, posterImage: itemImage).always {
             self.tableView.reloadData()
-        })
+        }
         
-        navigationItem.title = tvShow?.name
+        navigationItem.title = tvShow?.title
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -99,40 +96,4 @@ class TvShowViewController: UIViewController {
     }
     */
 
-}
-
-extension TvShowViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        switch section {
-            
-        case 0:
-            return CGFloat.leastNonzeroMagnitude
-        default:
-            return 25
-            
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        switch section {
-        case 1:
-            
-            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TvShowCastHeaderView.self))
-            
-            return view
-        case 2:
-            
-            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TvShowCastHeaderView.self))
-            
-            return view
-        default:
-            break
-        }
-
-        
-        return nil
-    }
 }

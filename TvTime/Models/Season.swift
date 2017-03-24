@@ -7,25 +7,27 @@
 //
 
 import UIKit
-import ObjectMapper
+import Decodable
 
-struct Season: Mappable {
+struct Season {
     
-    var episodeCount: Int!
-    var airDate: String!
-    var id: Int32!
-    var thumbnailURL: String!
-    var order: Int!
+    let episodeCount: Int!
+    let airDate: String!
+    let id: Int32!
+    let thumbnailURL: String!
+    let order: Int!
+}
+
+extension Season: Decodable {
     
-    init?(map: Map) {}
-    
-    mutating func mapping(map: Map) {
+    static func decode(_ json: Any) throws -> Season {
         
-        episodeCount <- map["episode_count"]
-        airDate <- map["air_date"]
-        id <- map["id"]
-        thumbnailURL <- map["poster_path"]
-        order <- map["season_number"]
-        
+        return try Season(
+            episodeCount: json => "episode_count",
+            airDate: json => "air_date",
+            id: json => "id",
+            thumbnailURL: json => "poster_path",
+            order: json => "season_number"
+        )
     }
 }

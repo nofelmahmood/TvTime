@@ -30,11 +30,11 @@ extension PushAnimator: UIViewControllerAnimatedTransitioning {
         containerView.addSubview(toViewController.view)
         
         let feedViewController = fromViewController as! FeedViewController
-        let tableView = feedViewController.tableView
+        let collectionView = feedViewController.collectionView
         
-        let rect = tableView.rectForRow(at: feedViewController.selectedRowIndexPath)
-        let rectInSuperview = tableView.convert(rect, to: feedViewController.view)
-        let cell = tableView.cellForRow(at: feedViewController.selectedRowIndexPath) as! ItemTableViewCell
+        let rect = CGRect.zero
+        let rectInSuperview = collectionView.convert(rect, to: feedViewController.view)
+        let  cell = collectionView.cellForItem(at: feedViewController.selectedRowIndexPath) as! FeedItemCollectionViewCell
         let image = cell.itemImageView.image
         
         let imageViewRect = CGRect(x: rectInSuperview.origin.x + 10, y: rectInSuperview.origin.y + 10, width: 90, height: 125)

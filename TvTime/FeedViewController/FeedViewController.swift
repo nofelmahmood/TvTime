@@ -9,20 +9,20 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-
-    lazy var tableView: UITableView = {
-        let tV = UITableView()
-        tV.translatesAutoresizingMaskIntoConstraints = false
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let cV = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        cV.translatesAutoresizingMaskIntoConstraints = false
         
-        return tV
+        return cV
     }()
     
-    lazy var tableViewActivityIndicatorView: UIActivityIndicatorView = {
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        view.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        return activityIndicatorView
+        return view
     }()
     
     let feedItemsDataSource = FeedItemsDataSource()
@@ -32,17 +32,18 @@ class FeedViewController: UIViewController {
     
     var selectedRowIndexPath: IndexPath!
     
+    var tableViewThreshold: CGFloat = 200
+    var loadingMore = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.black
-        tableView.backgroundColor = UIColor.black
         tabBarController?.tabBar.barTintColor = UIColor.black
         tabBarController?.tabBar.tintColor = Color.silver
         navigationController?.navigationBar.barTintColor = UIColor.black
         navigationController?.navigationBar.tintColor = Color.silver
-        tableView.backgroundColor = UIColor.black
         
         let segmentedControl = UISegmentedControl(items: feedItemsDataSource.segments)
         segmentedControl.tintColor = Color.silver
@@ -51,47 +52,46 @@ class FeedViewController: UIViewController {
         
         segmentedControl.addTarget(self, action: #selector(onFeedItemsSegmentedControlValueChange), for: .valueChanged)
         
-        //segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-      //  segmentedControl.leadingAnchor.constraint(equalTo: navigationController!.navigationBar.leadingAnchor, constant: 16.0).isActive = true
-        //navigationController!.navigationBar.trailingAnchor.constraint(equalTo: segmentedControl.trailingAnchor, constant: 16.0).isActive = true
-      
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         
-        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
+        collectionView.register(FeedItemCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: FeedItemCollectionViewCell.self))
+        let collectionViewLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        collectionViewLayout.estimatedItemSize = CGSize(width: 40, height: 40)
+        collectionViewLayout.minimumLineSpacing = 8
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44.0
-        tableView.separatorStyle = .none
+        collectionView.dataSource = feedItemsDataSource
+        collectionView.delegate = feedItemsDataSource
         
-        tableView.pinEdgesToSuperview()
+        collectionView.pinEdgesToSuperview(margin: 10)
         
         feedItemsDataSource.delegate = self
-        tableView.dataSource = feedItemsDataSource
-        tableView.delegate = self
         
-        view.addSubview(tableViewActivityIndicatorView)
+        view.addSubview(activityIndicatorView)
         
-        tableViewActivityIndicatorView.hidesWhenStopped = true
-        tableViewActivityIndicatorView.color = UIColor.white
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.color = UIColor.white
         
-        tableViewActivityIndicatorView.centerVertically()
-        tableViewActivityIndicatorView.centerHorizontally()
+        activityIndicatorView.centerVertically()
+        activityIndicatorView.centerHorizontally()
         
-        tableViewActivityIndicatorView.startAnimating()
-        tableView.alpha = 0
+        activityIndicatorView.startAnimating()
+        collectionView.alpha = 0
+        loadingMore = true
+        
         feedItemsDataSource.prepare(forSegment: segmentedControl.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
                 
-                self.tableView.reloadData()
-                self.tableViewActivityIndicatorView.stopAnimating()
+                self.collectionView.reloadData()
+                self.activityIndicatorView.stopAnimating()
+                self.loadingMore = false
                 
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.tableView.alpha = 1
+                    self.collectionView.alpha = 1
                 })
             })
         
-        self.navigationController?.delegate = self
-        
+ //       self.navigationController?.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,15 +103,21 @@ class FeedViewController: UIViewController {
     
     func onFeedItemsSegmentedControlValueChange(sender: UISegmentedControl) {
         
-        tableViewActivityIndicatorView.startAnimating()
-        tableView.alpha = 0
+        activityIndicatorView.startAnimating()
+        collectionView.alpha = 0
+        
+        let contentOffset = CGPoint(x: 0, y: 0)
+        collectionView.setContentOffset(contentOffset, animated: false)
+        loadingMore = true
+        
         feedItemsDataSource.prepare(forSegment: sender.selectedSegmentIndex)
             .then(execute: { (result) -> Void in
-                self.tableView.reloadData()
-                self.tableViewActivityIndicatorView.stopAnimating()
+                self.collectionView.reloadData()
+                self.activityIndicatorView.stopAnimating()
+                self.loadingMore = false
                 
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.tableView.alpha = 1
+                    self.collectionView.alpha = 1
                 })
             })
     }
@@ -137,12 +143,12 @@ class FeedViewController: UIViewController {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut, animations: {
             
             confirmationView.alpha = 1
-            self.tableView.alpha = 0.6
+            self.collectionView.alpha = 0.6
             
         }, completion: { completed in
             UIView.animate(withDuration: 0.25, delay: 0.75, options: .curveEaseOut, animations: {
                 
-                self.tableView.alpha = 1
+                self.collectionView.alpha = 1
                 confirmationView.alpha = 0
                 
             }, completion: { completed in
@@ -166,21 +172,28 @@ class FeedViewController: UIViewController {
 
 // MARK: - UITableViewDelegate 
 
-extension FeedViewController: UITableViewDelegate {
+extension FeedViewController: UICollectionViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        let tvShow = feedItemsDataSource.items![indexPath.row]
-        let item = tableView.cellForRow(at: indexPath) as! ItemTableViewCell
-        let image = item.itemImageView.image
+        guard !loadingMore else {
+            return
+        }
         
-        let tvShowViewController = TvShowViewController()
-        tvShowViewController.itemImage = image
-        tvShowViewController.tvShow = tvShow
+        let contentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         
-        selectedRowIndexPath = indexPath
+        if maximumOffset - contentOffset <= tableViewThreshold {
+            
+            let segmentedControl = navigationItem.titleView as! UISegmentedControl
+            loadingMore = true
+            feedItemsDataSource.loadNextPage(forSegment: segmentedControl.selectedSegmentIndex)
+                .then(execute: { (result) -> Void in
+                    
+                    self.loadingMore = false
+                })
+        }
         
-        navigationController?.pushViewController(tvShowViewController, animated: true)
     }
 }
 
@@ -208,4 +221,13 @@ extension FeedViewController: FeedItemsDataSourceDelegate {
         showFavoritedConfirmation(favorited: favorite)
     }
     
+    func feedItemsDataSource(dataSource: FeedItemsDataSource, didSelectTvShow tvShow: TraktTvShow, andImage image: UIImage?) {
+        
+        let tvshowViewController = TvShowViewController()
+        tvshowViewController.itemImage = image
+        tvshowViewController.tvShow = tvShow
+        tvshowViewController.hidesBottomBarWhenPushed = true
+        
+        navigationController?.pushViewController(tvshowViewController, animated: true)
+    }
 }

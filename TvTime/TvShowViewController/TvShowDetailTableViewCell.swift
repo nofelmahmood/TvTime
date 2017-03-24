@@ -113,6 +113,15 @@ class TvShowDetailTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    lazy var favoriteButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(onFavoriteButtonPress), for: .touchUpInside)
+        
+        return button
+    }()
+    
     lazy var awardsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -155,22 +164,52 @@ class TvShowDetailTableViewCell: UITableViewCell {
         return stackView
     }()
     
+    lazy var mainView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = Color.cellBackground
+        view.layer.borderColor = Color.cellBorder.cgColor
+        view.layer.borderWidth = 1
+        
+        return view
+    }()
+    
+    var favorited: Bool = false {
+        didSet {
+            if favorited {
+                favoriteButton.setImage(UIImage(named: "favorites_fill"), for: .normal)
+            } else {
+                favoriteButton.setImage(UIImage(named: "favorites_medium"), for: .normal)
+            }
+        }
+    }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = UIColor.black
-
-        contentView.addSubview(mainStackView)
         
+        mainView.addSubview(mainStackView)
+        contentView.addSubview(mainView)
+        
+        mainView.pinEdgesToSuperview(margin: 8)
+
         let widthItemImageView: CGFloat = 135
         let heightItemImageview: CGFloat = 188
         
         itemImageView.widthAnchor.constraint(equalToConstant: widthItemImageView).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: heightItemImageview).isActive = true
         
-      //  awardsLabel.pinEdgesToSuperview(margin: 8)
-        mainStackView.pinEdgesToSuperview(margin: 8)
+        let favoriteButtonWidth: CGFloat = 35
+        let favoriteButtonHeight: CGFloat = 33
         
+        favoriteButton.widthAnchor.constraint(equalToConstant: favoriteButtonWidth).isActive = true
+        favoriteButton.heightAnchor.constraint(equalToConstant: favoriteButtonHeight).isActive = true
+        
+        favorited = true
+        
+      //  awardsLabel.pinEdgesToSuperview(margin: 8)
+        mainStackView.pinEdgesToSuperview(margin: 10)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -217,6 +256,10 @@ class TvShowDetailTableViewCell: UITableViewCell {
         
         let imdbRatingLabel = imdbRatingStackView.arrangedSubviews[1] as! UILabel
         imdbRatingLabel.attributedText = originalAttrString
+        
+    }
+    
+    func onFavoriteButtonPress() {
         
     }
 

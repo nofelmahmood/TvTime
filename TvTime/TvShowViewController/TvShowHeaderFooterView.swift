@@ -8,16 +8,24 @@
 
 import UIKit
 
-class TvShowCastHeaderView: UITableViewHeaderFooterView {
+class TvShowHeaderFooterView: UITableViewHeaderFooterView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: Font.name, size: 16)
-        label.text = "Cast"
         label.textColor = UIColor.white
         
         return label
+    }()
+    
+    lazy var mainView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.black
+        view.backgroundColor = UIColor.green
+        
+        return view
     }()
     
     override init(reuseIdentifier: String?) {
@@ -25,15 +33,24 @@ class TvShowCastHeaderView: UITableViewHeaderFooterView {
         
         backgroundColor = UIColor.black
         contentView.backgroundColor = UIColor.black
+        mainView.backgroundColor = UIColor.black
         
-        contentView.addSubview(titleLabel)
+        mainView.addSubview(titleLabel)
+        contentView.addSubview(mainView)
         
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 9).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 17).isActive = true
+        mainView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Helpers
+    
+    func setTitle(title: String) {
+        titleLabel.text = title
     }
 
     /*

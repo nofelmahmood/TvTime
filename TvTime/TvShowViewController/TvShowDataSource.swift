@@ -11,88 +11,42 @@ import Alamofire
 import AlamofireObjectMapper
 import PromiseKit
 
+protocol TvShowDataSourceDelegate {
+    func tvShowDataSource(dataSource: TvShowDataSource, didSelectEpisode: TraktEpisode)
+}
+
 class TvShowDataSource: NSObject {
 
     var itemImage: UIImage?
-    var tvShow: TvShow?
+    var tvShow: TraktTvShow?
     var imdbTvShow: IMDBTvShow?
-    var seasons: [Season]?
+    var seasons: [TraktSeason]?
     var credits: [Credit]?
     
-    let numberOfSections = 3
+    var delegate: TvShowDataSourceDelegate?
     
-    func prepare(selectedTvShow: TvShow?, posterImage: UIImage?) -> AnyPromise {
+    func prepare(selectedTvShow: TraktTvShow?, posterImage: UIImage?) -> AnyPromise {
         
         itemImage = posterImage
         tvShow = selectedTvShow
         
+        let omdb = OMDB()
+        let trakt = Trakt()
+        
         let promise = Promise<Any>(resolvers: { resolve, reject in
             
             firstly(execute: {
-                getImdbInfo()
+                omdb.getTvShow(id: selectedTvShow!.imdbID!)
             }).then(execute: { result in
                 self.imdbTvShow = result as! IMDBTvShow?
-                return self.getSeasons()
-            }).then(execute: { result in
-                self.seasons = result as! [Season]?
-                self.seasons = self.seasons?.sorted(by: { return $0.0.order < $0.1.order })
-                return self.getCredits()
+                
+                return trakt.getSeasons(slug: self.tvShow!.slug)
             }).then(execute: { (result) -> Void in
-                self.credits = result as! [Credit]?
+                self.seasons = result as! [TraktSeason]?
+                self.seasons = self.seasons?.sorted(by: { return $0.0.number < $0.1.number })
+                
                 resolve(result!)
-            }).catch(execute: { error in
-                reject(error)
-            })
-        })
-        
-        return AnyPromise(promise)
-    }
-    
-    func getExternalIDs() -> AnyPromise {
-        
-        let id = tvShow!.id!
-        let url = "\(APIEndPoint.externalIDs)/\(id)/external_ids?api_key=\(API.key)&language=en-US"
-        
-        let promise = Promise<Any>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
-                if response.result.isSuccess {
-                    resolve(response.result.value!)
-                } else {
-                    reject(response.error!)
-                }
-                
-            })
-        })
-        
-        return AnyPromise(promise)
-    }
-    
-    func getImdbInfo() -> AnyPromise {
-        
-        let promise = Promise<IMDBTvShow>(resolvers: { resolve, reject in
-            
-            getExternalIDs().then(execute: { (result) -> Void in
-                
-                let json = result as! [String: Any]
-                
-                if let imdbID = json["imdb_id"] as? String {
-                    let url = "\(APIEndPoint.imdb)?i=\(imdbID)"
-                    
-                    Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseObject(completionHandler: { (response: DataResponse<IMDBTvShow>) in
-                        
-                        if response.result.isSuccess {
-                            resolve(response.result.value!)
-                        } else {
-                            reject(response.error!)
-                        }
-                    })
-                    
-                } else {
-                    let error = NSError(domain: "com.api.error", code: 1041, userInfo: nil)
-                    reject(error)
-                }
-                
             }).catch(execute: { error in
                 reject(error)
             })
@@ -108,10 +62,15 @@ class TvShowDataSource: NSObject {
         
         let promise = Promise<[Season]>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "seasons", completionHandler: { (response: DataResponse<[Season]>) in
-               
+            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
+                
                 if response.result.isSuccess {
-                    resolve(response.result.value!)
+                    
+                    let json = response.result.value as! [String: AnyObject]
+                    let jsonSeasons = json["seasons"]
+                    let seasons = try? [Season].decode(jsonSeasons!)
+                    resolve(seasons!)
+                    
                 } else {
                     reject(response.error!)
                 }
@@ -128,10 +87,15 @@ class TvShowDataSource: NSObject {
         
         let promise = Promise<[Credit]>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "cast", completionHandler: { (response: DataResponse<[Credit]>) in
+            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
                 
                 if response.result.isSuccess {
-                    resolve(response.result.value!)
+                    
+                    let json = response.result.value as! [String: AnyObject]
+                    let jsonCredits = json["cast"]
+                    let credits = try? [Credit].decode(jsonCredits!)
+                    
+                    resolve(credits!)
                 } else {
                     reject(response.error!)
                 }
@@ -143,27 +107,32 @@ class TvShowDataSource: NSObject {
     
 }
 
+// MARK: - UITableViewDataSource
+
 extension TvShowDataSource: UITableViewDataSource {
    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return numberOfSections
+        
+        guard let seasons = seasons else {
+            return 1
+        }
+        
+        return seasons.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch section {
-        case 0:
-            return 2
-        case 1:
-            return credits == nil ? 0: credits!.count
-        case 2:
-            return seasons == nil ? 0: seasons!.count
-        default:
-            break
+        if section == 0 {
+            return 3
+            
+        } else {
+            let season = seasons![section - 1]
+            let episodes = season.episodes
+            
+            return episodes.count
         }
-        return 0
     }
-    
+ 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
@@ -181,10 +150,15 @@ extension TvShowDataSource: UITableViewDataSource {
                 
             case 1:
                 
-                let overviewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowOverviewTableViewCell.self), for: indexPath) as! TvShowOverviewTableViewCell
+                let relatedShowsCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowRelatedShowsTableViewCell.self), for: indexPath) as! TvShowRelatedShowsTableViewCell
                 
+                return relatedShowsCell
+                
+            case 2:
+                
+                let overviewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowOverviewTableViewCell.self), for: indexPath) as! TvShowOverviewTableViewCell
+
                 overviewCell.overviewLabel.text = imdbTvShow?.plot
-                //overviewCell.overviewLabel.text = tvShow?.overview
                 
                 return overviewCell
                 
@@ -193,28 +167,58 @@ extension TvShowDataSource: UITableViewDataSource {
             }
         }
         
-        if indexPath.section == 1 {
+        if indexPath.section > 0 {
             
-            let credit = credits![indexPath.row]
+            let season = seasons![indexPath.section - 1]
+            let episode = season.episodes[indexPath.row]
             
-            let creditCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowCreditTableViewCell.self), for: indexPath) as! TvShowCreditTableViewCell
+            let episodeCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowEpisodeTableViewCell.self), for: indexPath) as! TvShowEpisodeTableViewCell
+            episodeCell.setEpisode(episode: episode)
             
-            creditCell.setCredit(credit: credit)
-            
-            return creditCell
-        }
-        
-        if indexPath.section == 2 {
-            
-            let season = seasons![indexPath.row]
-            
-            let seasonCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowSeasonTableViewCell.self), for: indexPath) as! TvShowSeasonTableViewCell
-            
-            seasonCell.setSeason(season: season)
-            
-            return seasonCell
+            return episodeCell
         }
     
         return UITableViewCell()
+    }
+}
+
+// MARK: - UITableViewDelegate 
+
+extension TvShowDataSource: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        switch section {
+            
+        case 0:
+            return CGFloat.leastNonzeroMagnitude
+        default:
+            return 25
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard section != 0 else {
+            return nil
+        }
+        
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: TvShowHeaderFooterView.self)) as! TvShowHeaderFooterView
+        
+        let season = seasons![section - 1]
+        let number = season.number!
+        
+        view.setTitle(title: "Season \(number)")
+        
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let season = seasons![indexPath.section - 1]
+        let episode = season.episodes[indexPath.row]
+        
+        delegate?.tvShowDataSource(dataSource: self, didSelectEpisode: episode)
     }
 }

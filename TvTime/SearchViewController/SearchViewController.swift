@@ -11,10 +11,10 @@ import UIKit
 class SearchViewController: UIViewController {
     
     lazy var tableView: UITableView = {
-        let tV = UITableView()
-        tV.translatesAutoresizingMaskIntoConstraints = false
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        return tV
+        return tableView
     }()
     
     let searchItemsDataSource = SearchItemsDataSource()
