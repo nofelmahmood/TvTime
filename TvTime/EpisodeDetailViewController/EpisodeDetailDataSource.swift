@@ -12,13 +12,27 @@ import PromiseKit
 
 class EpisodeDetailDataSource: NSObject {
     
+    var episode: TraktEpisodeDetail?
+    
     func prepare(slug: String, seasonNumber: Int, episodeNumber: Int) -> AnyPromise {
         
         let trakt = Trakt()
         
-        return trakt.getEpisodeDetail(slug: slug, seasonNumber: seasonNumber, episodeNumber: episodeNumber)
+        let promise = Promise<TraktEpisodeDetail>(resolvers: { resolve, reject in
+            
+            trakt.getEpisodeDetail(slug: slug, seasonNumber: seasonNumber, episodeNumber: episodeNumber)
+                .then(execute: { (result) -> Void in
+                    
+                    let episodeDetail = result as! TraktEpisodeDetail
+                    resolve(episodeDetail)
+                    
+                }).catch(execute: { error in
+                    reject(error)
+                })
+        })
+        
+        return AnyPromise(promise)
     }
-    
 }
 
 // MARK: - UITableViewDataSource

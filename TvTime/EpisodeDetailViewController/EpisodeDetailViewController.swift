@@ -16,6 +16,8 @@ class EpisodeDetailViewController: UIViewController {
         
         return tV
     }()
+    
+    let episodeDetailDataSource = EpisodeDetailDataSource()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +35,9 @@ class EpisodeDetailViewController: UIViewController {
         tableView.pinTrailingToSuperview(margin: 8)
         tableView.pinTopToSuperview()
         tableView.pinBottomToSuperview(margin: 8)
+        
+        tableView.dataSource = episodeDetailDataSource
+        tableView.delegate = episodeDetailDataSource
         
     }
 
