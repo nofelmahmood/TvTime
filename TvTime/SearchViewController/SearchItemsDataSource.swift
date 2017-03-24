@@ -12,24 +12,21 @@ import PromiseKit
 
 class SearchItemsDataSource: NSObject {
     
-    var items: [TvShow]?
+    var items: [TraktTvShow]?
     
     func prepare(query: String, page: Int) -> AnyPromise {
+        
+        
+        Trakt.shared.authorize().then(execute: { result in
+            print("Authorized \(result)")
+        }).catch(execute: { error in
+            print("Error in \(error)")
+        })
         
         let stringQuery = query.replacingOccurrences(of: " ", with: "%20")
         let url = "\(APIEndPoint.search)?api_key=\(API.key)&language=en-US&query=\(stringQuery)&page=\(page)"
         
-        let promise = Promise<[TvShow]>(resolvers: { resolve, reject in
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseArray(keyPath: "results", completionHandler: { (response: DataResponse<[TvShow]>) in
-                
-                if response.result.isSuccess {
-                    self.items = response.result.value
-                    resolve(response.result.value!)
-                
-                } else {
-                    reject(response.error!)
-                }
-            })
+        let promise = Promise<[TraktTvShow]>(resolvers: { resolve, reject in
         })
         
         return AnyPromise(promise)
