@@ -11,13 +11,6 @@ import AlamofireImage
 
 class TvShowRelatedCollectionViewCell: UICollectionViewCell {
     
-    lazy var tvShowImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
-    
     lazy var tvShowButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false

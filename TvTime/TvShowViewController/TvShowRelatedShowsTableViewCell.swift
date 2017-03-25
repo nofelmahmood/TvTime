@@ -110,7 +110,6 @@ extension TvShowRelatedShowsTableViewCell: UICollectionViewDataSource {
         
         let tvShow = relatedItems![indexPath.row]
         let trakt = Trakt()
-        tvShowRelatedCell.tvShowImageView.image = nil
         tvShowRelatedCell.onButtonPress = {
             self.onRelatedTvShowButtonPress?(tvShow)
         }
