@@ -199,7 +199,7 @@ class Trakt {
                 switch result {
                 case let .success(moyaResponse):
                     let data = moyaResponse.data
-                    let json = try? JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.init(rawValue: 0))
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
                     if let json = json, let relatedTvShows = try? [TraktTvShow].decode(json) {
                         resolve(relatedTvShows)
                     } else {

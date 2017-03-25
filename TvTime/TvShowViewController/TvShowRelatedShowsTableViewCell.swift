@@ -7,14 +7,38 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class TvShowRelatedShowsTableViewCell: UITableViewCell {
 
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cV = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        cV.translatesAutoresizingMaskIntoConstraints = false
+        cV.backgroundColor = Color.cellBackground
         
         return cV
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: Font.name, size: 18)
+        label.textColor = UIColor.white
+        label.text = "Related"
+        
+        return label
+    }()
+    
+    lazy var stackView: UIStackView = {
+        let sV = UIStackView(arrangedSubviews: [self.titleLabel, self.collectionView])
+        sV.translatesAutoresizingMaskIntoConstraints = false
+        sV.axis = .vertical
+        sV.distribution = .fillProportionally
+        sV.alignment = .fill
+        sV.spacing = 8
+        
+        return sV
     }()
     
     lazy var mainView: UIView = {
@@ -27,22 +51,36 @@ class TvShowRelatedShowsTableViewCell: UITableViewCell {
         return view
     }()
     
-    var relatedItems: [TraktTvShow]?
+    var relatedItems: [TraktTvShow]? {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.backgroundColor = UIColor.black
-        mainView.addSubview(collectionView)
+        mainView.addSubview(stackView)
         contentView.addSubview(mainView)
         
-        collectionView.pinEdgesToSuperview(margin: 8)
         mainView.pinEdgesToSuperview(margin: 8)
+        stackView.pinEdgesToSuperview(margin: 8)
         
         collectionView.register(TvShowRelatedCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TvShowRelatedCollectionViewCell.self))
         
         let collectionViewLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        collectionViewLayout.estimatedItemSize = CGSize(width: 40, height: 40)
+        collectionViewLayout.estimatedItemSize = CGSize(width: 90, height: 125)
+        collectionViewLayout.scrollDirection = .horizontal
+        collectionViewLayout.minimumLineSpacing = 0
+        collectionViewLayout.minimumInteritemSpacing = 8
+        
+        collectionView.dataSource = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        collectionView.heightAnchor.constraint(equalToConstant: 150).isActive = true
 
     }
     
@@ -68,6 +106,23 @@ extension TvShowRelatedShowsTableViewCell: UICollectionViewDataSource {
         
         let tvShowRelatedCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TvShowRelatedCollectionViewCell.self), for: indexPath) as! TvShowRelatedCollectionViewCell
         
+        let tvShow = relatedItems![indexPath.row]
+        let trakt = Trakt()
+        tvShowRelatedCell.tvShowImageView.image = nil
+        
+        if tvShow.imdbID != nil {
+            
+            trakt.getPosterURL(imdbID: tvShow.imdbID)
+                .then(execute: { (result) -> Void in
+                    
+                    let posterURLString = result as! String
+                    let url = URL(string: posterURLString)!
+                    
+                    tvShowRelatedCell.setImage(url: url)
+                    
+                    //tvShowRelatedCell.tvShowImageView.af_setImage(withURL: url)
+                })
+        }
         
         return tvShowRelatedCell
     }
