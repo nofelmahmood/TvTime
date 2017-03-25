@@ -13,6 +13,7 @@ import PromiseKit
 
 protocol TvShowDataSourceDelegate {
     func tvShowDataSource(dataSource: TvShowDataSource, didSelectEpisode: TraktEpisode)
+    func tvShowDataSource(dataSource: TvShowDataSource, didSelectRelatedTvShow tvShow: TraktTvShow)
 }
 
 class TvShowDataSource: NSObject {
@@ -158,6 +159,9 @@ extension TvShowDataSource: UITableViewDataSource {
                 let relatedShowsCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowRelatedShowsTableViewCell.self), for: indexPath) as! TvShowRelatedShowsTableViewCell
                 
                 relatedShowsCell.relatedItems = relatedTvShows
+                relatedShowsCell.onRelatedTvShowButtonPress = { tvShow in
+                    self.delegate?.tvShowDataSource(dataSource: self, didSelectRelatedTvShow: tvShow)
+                }
                 
                 return relatedShowsCell
                 

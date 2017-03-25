@@ -57,6 +57,8 @@ class TvShowRelatedShowsTableViewCell: UITableViewCell {
         }
     }
     
+    var onRelatedTvShowButtonPress: ((_ tvShow: TraktTvShow) -> Void)?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -109,6 +111,9 @@ extension TvShowRelatedShowsTableViewCell: UICollectionViewDataSource {
         let tvShow = relatedItems![indexPath.row]
         let trakt = Trakt()
         tvShowRelatedCell.tvShowImageView.image = nil
+        tvShowRelatedCell.onButtonPress = {
+            self.onRelatedTvShowButtonPress?(tvShow)
+        }
         
         if tvShow.imdbID != nil {
             
@@ -119,8 +124,6 @@ extension TvShowRelatedShowsTableViewCell: UICollectionViewDataSource {
                     let url = URL(string: posterURLString)!
                     
                     tvShowRelatedCell.setImage(url: url)
-                    
-                    //tvShowRelatedCell.tvShowImageView.af_setImage(withURL: url)
                 })
         }
         
