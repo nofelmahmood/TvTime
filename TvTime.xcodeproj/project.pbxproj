@@ -36,6 +36,7 @@
 		3E6C41F71E72A32C00939DE5 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6C41F41E72A32C00939DE5 /* RealmSwift.framework */; };
 		3E6C41F81E72A32C00939DE5 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6C41F41E72A32C00939DE5 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C42001E72A5C000939DE5 /* RealmTvShow.swift */; };
+		3E740E311E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E740E301E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift */; };
 		3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */; };
 		3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */; };
 		3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1451E71591800C5AFA9 /* FeedViewController.swift */; };
@@ -108,6 +109,7 @@
 		3E6C41F31E72A32C00939DE5 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		3E6C41F41E72A32C00939DE5 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		3E6C42001E72A5C000939DE5 /* RealmTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmTvShow.swift; path = RealmModels/RealmTvShow.swift; sourceTree = "<group>"; };
+		3E740E301E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowSeasonsHeaderFooterView.swift; path = TvShowViewController/TvShowSeasonsHeaderFooterView.swift; sourceTree = "<group>"; };
 		3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleViewController.swift; path = ScheduleViewController/ScheduleViewController.swift; sourceTree = "<group>"; };
 		3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedItemsDataSource.swift; path = FeedViewController/FeedItemsDataSource.swift; sourceTree = "<group>"; };
 		3EACB1451E71591800C5AFA9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = FeedViewController/FeedViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				3E1D9E341E7F9B4C0020B258 /* TvShowEpisodeTableViewCell.swift */,
 				3E1D9E411E814A6B0020B258 /* TvShowRelatedShowsTableViewCell.swift */,
 				3E1D9E441E81512B0020B258 /* TvShowRelatedCollectionViewCell.swift */,
+				3E740E301E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift */,
 			);
 			name = TvShowViewController;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				3E4298491E72E6E600FAD65E /* PopAnimator.swift in Sources */,
 				3E1D9E381E7FA6A90020B258 /* EpisodeDetailViewController.swift in Sources */,
 				3E1D9E451E81512B0020B258 /* TvShowRelatedCollectionViewCell.swift in Sources */,
+				3E740E311E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift in Sources */,
 				3E1D9E2A1E7BEF180020B258 /* TraktTvShow.swift in Sources */,
 				3EFCD9451E75DA9A00364284 /* TvShowSeasonTableViewCell.swift in Sources */,
 				3E1D9E2C1E7D4E920020B258 /* OMDB.swift in Sources */,

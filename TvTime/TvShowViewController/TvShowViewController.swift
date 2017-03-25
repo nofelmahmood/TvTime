@@ -106,12 +106,14 @@ extension TvShowViewController: TvShowDataSourceDelegate {
         
     }
     
-    func tvShowDataSource(dataSource: TvShowDataSource, didSelectRelatedTvShow tvShow: TraktTvShow) {
+    func tvShowDataSource(dataSource: TvShowDataSource, didSelectRelatedTvShow tvShow: TraktTvShow, image: UIImage?) {
         
         let tvShowViewController = TvShowViewController()
         tvShowViewController.tvShow = tvShow
+        tvShowViewController.itemImage = image
         tvShowViewController.hidesBottomBarWhenPushed = true
         
         navigationController?.pushViewController(tvShowViewController, animated: true)
+        
     }
 }

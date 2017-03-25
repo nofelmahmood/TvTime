@@ -20,19 +20,19 @@ class TvShowRelatedCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    var onButtonPress: (() -> Void)?
+    var onButtonPress: ((_ image: UIImage?) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let imageViewWidth: CGFloat = 92
-        let imageViewHeight: CGFloat = 125
+        let imageViewWidth: CGFloat = 128.8
+        let imageViewHeight: CGFloat = 175
         
         contentView.addSubview(tvShowButton)
         
         tvShowButton.imageView?.contentMode = .scaleAspectFit
         
-        tvShowButton.pinEdgesToSuperview(margin: 8)
+        tvShowButton.pinEdgesToSuperview(margin: 4)
         tvShowButton.widthAnchor.constraint(equalToConstant: imageViewWidth).isActive = true
         tvShowButton.heightAnchor.constraint(equalToConstant: imageViewHeight).isActive = true
     }
@@ -49,7 +49,8 @@ class TvShowRelatedCollectionViewCell: UICollectionViewCell {
     }
     
     func onTvShowButtonPress() {
-        onButtonPress?()
+        let image = tvShowButton.imageView?.image
+        onButtonPress?(image)
     }
     
 }

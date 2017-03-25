@@ -57,7 +57,7 @@ class TvShowRelatedShowsTableViewCell: UITableViewCell {
         }
     }
     
-    var onRelatedTvShowButtonPress: ((_ tvShow: TraktTvShow) -> Void)?
+    var onRelatedTvShowButtonPress: ((_ tvShow: TraktTvShow, _ image: UIImage?) -> Void)?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -72,7 +72,7 @@ class TvShowRelatedShowsTableViewCell: UITableViewCell {
         collectionView.register(TvShowRelatedCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TvShowRelatedCollectionViewCell.self))
         
         let collectionViewLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        collectionViewLayout.estimatedItemSize = CGSize(width: 90, height: 125)
+        collectionViewLayout.estimatedItemSize = CGSize(width: 40, height: 40)
         collectionViewLayout.scrollDirection = .horizontal
         collectionViewLayout.minimumLineSpacing = 0
         collectionViewLayout.minimumInteritemSpacing = 8
@@ -82,7 +82,8 @@ class TvShowRelatedShowsTableViewCell: UITableViewCell {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         
-        collectionView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        //collectionView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: 200).isActive = true
 
     }
     
@@ -110,8 +111,8 @@ extension TvShowRelatedShowsTableViewCell: UICollectionViewDataSource {
         
         let tvShow = relatedItems![indexPath.row]
         let trakt = Trakt()
-        tvShowRelatedCell.onButtonPress = {
-            self.onRelatedTvShowButtonPress?(tvShow)
+        tvShowRelatedCell.onButtonPress = { image in
+            self.onRelatedTvShowButtonPress?(tvShow, image)
         }
         
         if tvShow.imdbID != nil {
