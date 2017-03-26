@@ -38,6 +38,7 @@
 		3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C42001E72A5C000939DE5 /* RealmTvShow.swift */; };
 		3E740E311E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E740E301E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift */; };
 		3E740E331E87938800A266E1 /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E740E321E87938800A266E1 /* SettingsDataSource.swift */; };
+		3E740E351E881CE900A266E1 /* OMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E740E341E881CE900A266E1 /* OMDBService.swift */; };
 		3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */; };
 		3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */; };
 		3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1451E71591800C5AFA9 /* FeedViewController.swift */; };
@@ -112,6 +113,7 @@
 		3E6C42001E72A5C000939DE5 /* RealmTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmTvShow.swift; path = RealmModels/RealmTvShow.swift; sourceTree = "<group>"; };
 		3E740E301E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowSeasonsHeaderFooterView.swift; path = TvShowViewController/TvShowSeasonsHeaderFooterView.swift; sourceTree = "<group>"; };
 		3E740E321E87938800A266E1 /* SettingsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsDataSource.swift; path = SettingsViewController/SettingsDataSource.swift; sourceTree = "<group>"; };
+		3E740E341E881CE900A266E1 /* OMDBService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OMDBService.swift; path = Helpers/OMDBService.swift; sourceTree = "<group>"; };
 		3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleViewController.swift; path = ScheduleViewController/ScheduleViewController.swift; sourceTree = "<group>"; };
 		3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedItemsDataSource.swift; path = FeedViewController/FeedItemsDataSource.swift; sourceTree = "<group>"; };
 		3EACB1451E71591800C5AFA9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = FeedViewController/FeedViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				3EFCD9561E77CF7000364284 /* Trakt.swift */,
 				3E037A081E828E8D00A11A4E /* TraktService.swift */,
 				3E1D9E2B1E7D4E920020B258 /* OMDB.swift */,
+				3E740E341E881CE900A266E1 /* OMDBService.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				3EFCD9481E75E81400364284 /* SearchViewController.swift in Sources */,
 				3E4298431E72BF2D00FAD65E /* TvShowViewController.swift in Sources */,
 				3EFCD9411E759DBB00364284 /* TvShowCreditTableViewCell.swift in Sources */,
+				3E740E351E881CE900A266E1 /* OMDBService.swift in Sources */,
 				3EFCD9871E79531300364284 /* LoginViewController.swift in Sources */,
 				3EACB1491E71591800C5AFA9 /* ItemTableViewCell.swift in Sources */,
 				3E1C8F4E1E705C2D00832E33 /* UIView+Constraints.swift in Sources */,
