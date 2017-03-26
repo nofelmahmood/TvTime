@@ -37,6 +37,7 @@
 		3E6C41F81E72A32C00939DE5 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E6C41F41E72A32C00939DE5 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E6C42011E72A5C000939DE5 /* RealmTvShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C42001E72A5C000939DE5 /* RealmTvShow.swift */; };
 		3E740E311E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E740E301E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift */; };
+		3E740E331E87938800A266E1 /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E740E321E87938800A266E1 /* SettingsDataSource.swift */; };
 		3EACB1431E71477E00C5AFA9 /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */; };
 		3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */; };
 		3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EACB1451E71591800C5AFA9 /* FeedViewController.swift */; };
@@ -110,6 +111,7 @@
 		3E6C41F41E72A32C00939DE5 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
 		3E6C42001E72A5C000939DE5 /* RealmTvShow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmTvShow.swift; path = RealmModels/RealmTvShow.swift; sourceTree = "<group>"; };
 		3E740E301E86A46800A266E1 /* TvShowSeasonsHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowSeasonsHeaderFooterView.swift; path = TvShowViewController/TvShowSeasonsHeaderFooterView.swift; sourceTree = "<group>"; };
+		3E740E321E87938800A266E1 /* SettingsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsDataSource.swift; path = SettingsViewController/SettingsDataSource.swift; sourceTree = "<group>"; };
 		3EACB1421E71477E00C5AFA9 /* ScheduleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleViewController.swift; path = ScheduleViewController/ScheduleViewController.swift; sourceTree = "<group>"; };
 		3EACB1441E71591800C5AFA9 /* FeedItemsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedItemsDataSource.swift; path = FeedViewController/FeedItemsDataSource.swift; sourceTree = "<group>"; };
 		3EACB1451E71591800C5AFA9 /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedViewController.swift; path = FeedViewController/FeedViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				3E1D9E2E1E7DA8960020B258 /* SettingsViewController.swift */,
+				3E740E321E87938800A266E1 /* SettingsDataSource.swift */,
 			);
 			name = SettingsViewController;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				3ED43ED71E72EBD400F46F6D /* TvShowDataSource.swift in Sources */,
 				3EACB1481E71591800C5AFA9 /* FeedViewController.swift in Sources */,
 				3EACB1471E71591800C5AFA9 /* FeedItemsDataSource.swift in Sources */,
+				3E740E331E87938800A266E1 /* SettingsDataSource.swift in Sources */,
 				3E1D9E2F1E7DA8960020B258 /* SettingsViewController.swift in Sources */,
 				3ED43ED91E72EC7300F46F6D /* TvShowDetailTableViewCell.swift in Sources */,
 				3EFCD93F1E75942000364284 /* Season.swift in Sources */,

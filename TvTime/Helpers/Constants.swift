@@ -35,6 +35,7 @@ struct APIEndPoint {
     static let traktTrending = "https://api.trakt.tv/shows/trending"
     static let traktAnticipated = "https://api.trakt.tv/shows/anticipated"
     static let traktShows = "https://api.trakt.tv/shows"
+    static let traktSearch = "https://api.trakt.tv/search"
 }
 
 struct TraktTvShowsType {
