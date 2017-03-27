@@ -228,9 +228,10 @@ class Trakt {
                 switch result {
                 case let .success(moyaResponse):
                     let data = moyaResponse.data
-                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [[String: AnyObject]]
+                    let resultsJson = json?.map({ $0["show"] as! [String: AnyObject] })
                     
-                    if let json = json, let resultTvShows = try? [TraktTvShow].decode(json) {
+                    if let resultsJson = resultsJson, let resultTvShows = try? [TraktTvShow].decode(resultsJson) {
                         resolve(resultTvShows)
                     } else {
                         let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
