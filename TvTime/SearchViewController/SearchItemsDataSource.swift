@@ -13,20 +13,23 @@ import PromiseKit
 class SearchItemsDataSource: NSObject {
     
     var items: [TraktTvShow]?
+    var imageURLs = [IndexPath: String]()
     
     func prepare(query: String, page: Int) -> AnyPromise {
         
-        
-        Trakt.shared.authorize().then(execute: { result in
-            print("Authorized \(result)")
-        }).catch(execute: { error in
-            print("Error in \(error)")
-        })
-        
-        let stringQuery = query.replacingOccurrences(of: " ", with: "%20")
-        let url = "\(APIEndPoint.search)?api_key=\(API.key)&language=en-US&query=\(stringQuery)&page=\(page)"
+        let trakt = Trakt()
+        imageURLs.removeAll()
         
         let promise = Promise<[TraktTvShow]>(resolvers: { resolve, reject in
+            
+            trakt.searchTvShows(query: query)
+                .then(execute: { (result) -> Void in
+                    self.items = result as? [TraktTvShow]
+                    resolve(self.items!)
+                    
+                }).catch(execute: { error in
+                    reject(error)
+                })
         })
         
         return AnyPromise(promise)
@@ -35,21 +38,60 @@ class SearchItemsDataSource: NSObject {
     func clear() {
         items = nil
     }
+    
+    func itemAtIndexPath(indexPath: IndexPath) -> TraktTvShow? {
+        guard let tvShows = items else {
+            return nil
+        }
+        
+        return tvShows[indexPath.row]
+    }
 }
 
-extension SearchItemsDataSource: UITableViewDataSource {
+// MARK: - UICollectionViewDataSource
+
+extension SearchItemsDataSource: UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items == nil ? 0: items!.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ItemTableViewCell.self), for: indexPath) as! ItemTableViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: FeedItemCollectionViewCell.self), for: indexPath) as! FeedItemCollectionViewCell
         
         let item = items![indexPath.row]
-        cell.setTvShow(tvShow: item, row: indexPath.row)
+        cell.setTvShow(tvShow: item)
+        cell.itemImageView.image = nil
+        
+        if imageURLs[indexPath] == nil {
+            
+            if let imdbID = item.imdbID {
+                
+                let trakt = Trakt()
+                trakt.getPosterURL(imdbID: imdbID).then(execute: { (result) -> Void in
+                    
+                        let urlString = result as! String
+                        let url = URL(string: urlString)!
+                        self.imageURLs[indexPath] = urlString
+                        
+                        cell.itemImageView.af_setImage(withURL: url)
+                    })
+            }
+            
+        } else {
+            
+            let imageURL = imageURLs[indexPath]!
+            let url = URL(string: imageURL)!
+            cell.itemImageView.af_setImage(withURL: url)
+        }
         
         return cell
     }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension SearchItemsDataSource: UICollectionViewDelegate {
+    
 }
