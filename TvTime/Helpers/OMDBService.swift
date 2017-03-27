@@ -35,11 +35,41 @@ extension OMDBService: TargetType {
     var method: Moya.Method {
         
         switch self {
-            
+        case .tvShow(_):
+            return .get
+        default:
+            return .get
         }
     }
     
-    var parameters: [String: AnyObject] {
-        
+    var parameters: [String: Any]? {
+        switch self {
+        case .tvShow(let id):
+            return ["i": id]
+        default:
+            return nil
+        }
     }
+    
+    var parameterEncoding: ParameterEncoding {
+        switch self {
+        default:
+            return URLEncoding.default
+        }
+    }
+    
+    var sampleData: Data {
+        switch self {
+        default:
+            return Data(base64Encoded: "{ \"name\": \"WestWorld\"}")!
+        }
+    }
+    
+    var task: Task {
+        switch self {
+        default:
+            return .request
+        }
+    }
+    
 }
