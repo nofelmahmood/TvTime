@@ -36,7 +36,7 @@ class SearchItemsDataSource: NSObject {
     }
     
     func clear() {
-        items = nil
+        items?.removeAll()
     }
     
     func itemAtIndexPath(indexPath: IndexPath) -> TraktTvShow? {
@@ -88,10 +88,4 @@ extension SearchItemsDataSource: UICollectionViewDataSource {
         
         return cell
     }
-}
-
-// MARK: - UICollectionViewDelegate
-
-extension SearchItemsDataSource: UICollectionViewDelegate {
-    
 }
