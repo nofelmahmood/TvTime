@@ -9,7 +9,6 @@
 import UIKit
 import Moya
 
-
 enum TraktService {
     case tvShows(showsType: String, extendedInfo: String?, page: Int, limit: Int)
     case seasons(slug: String, extendedInfo: String)
@@ -42,7 +41,7 @@ extension TraktService: TargetType {
             return "/shows/\(slug)/related"
             
         case .searchTvShows(_, _):
-            return "/search/shows"
+            return "/search/show"
             
         default:
             return ""
@@ -83,18 +82,10 @@ extension TraktService: TargetType {
             guard let extendedInfo = extendedInfo else {
                 return ["query": query]
             }
-            return ["query": query, "extendedInfo": extendedInfo]
+            return ["query": query, "extended": extendedInfo]
             
         default:
             return nil
-        }
-    }
-    
-    var headers: [String: Any]? {
-        switch self {
-        default:
-            return ["Content-Type": "application/json", "trakt-api-version": "2", "trakt-api-key": API.traktClientID]
-            
         }
     }
     
