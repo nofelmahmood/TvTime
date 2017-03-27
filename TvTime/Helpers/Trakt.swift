@@ -199,13 +199,45 @@ class Trakt {
                 switch result {
                 case let .success(moyaResponse):
                     let data = moyaResponse.data
-                    let json = try? JSONSerialization.data(withJSONObject: data, options: JSONSerialization.WritingOptions.init(rawValue: 0))
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0))
+                    
                     if let json = json, let relatedTvShows = try? [TraktTvShow].decode(json) {
                         resolve(relatedTvShows)
                     } else {
                         let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
                         reject(error)
                     }
+                    
+                case let .failure(error):
+                    reject(error)
+                }
+            })
+        })
+        
+        return AnyPromise(promise)
+    }
+    
+    func searchTvShows(query: String) -> AnyPromise {
+        
+        let provider = self.provider()
+        
+        let promise = Promise<[TraktTvShow]>(resolvers: { resolve, reject in
+            
+            provider.request(.searchTvShows(query: query, extendedInfo: "full"), completion: { result in
+                
+                switch result {
+                case let .success(moyaResponse):
+                    let data = moyaResponse.data
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [[String: AnyObject]]
+                    let resultsJson = json?.map({ $0["show"] as! [String: AnyObject] })
+                    
+                    if let resultsJson = resultsJson, let resultTvShows = try? [TraktTvShow].decode(resultsJson) {
+                        resolve(resultTvShows)
+                    } else {
+                        let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
+                        reject(error)
+                    }
+                    
                 case let .failure(error):
                     reject(error)
                 }

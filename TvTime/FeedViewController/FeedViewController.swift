@@ -62,6 +62,7 @@ class FeedViewController: UIViewController {
         
         collectionView.dataSource = feedItemsDataSource
         collectionView.delegate = feedItemsDataSource
+        collectionView.isPrefetchingEnabled = false
         
         collectionView.pinEdgesToSuperview(margin: 10)
         

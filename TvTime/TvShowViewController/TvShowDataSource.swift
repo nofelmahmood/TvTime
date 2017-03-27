@@ -13,6 +13,7 @@ import PromiseKit
 
 protocol TvShowDataSourceDelegate {
     func tvShowDataSource(dataSource: TvShowDataSource, didSelectEpisode: TraktEpisode)
+    func tvShowDataSource(dataSource: TvShowDataSource, didSelectRelatedTvShow tvShow: TraktTvShow, image: UIImage?)
 }
 
 class TvShowDataSource: NSObject {
@@ -22,6 +23,7 @@ class TvShowDataSource: NSObject {
     var imdbTvShow: IMDBTvShow?
     var seasons: [TraktSeason]?
     var credits: [Credit]?
+    var relatedTvShows: [TraktTvShow]?
     
     var delegate: TvShowDataSourceDelegate?
     
@@ -41,12 +43,16 @@ class TvShowDataSource: NSObject {
                 self.imdbTvShow = result as! IMDBTvShow?
                 
                 return trakt.getSeasons(slug: self.tvShow!.slug)
-            }).then(execute: { (result) -> Void in
+            }).then(execute: { result in
                 self.seasons = result as! [TraktSeason]?
                 self.seasons = self.seasons?.sorted(by: { return $0.0.number < $0.1.number })
                 
-                resolve(result!)
+                return trakt.getRelatedTvShows(slug: selectedTvShow!.slug)
             
+            }).then(execute: { (result) -> Void in
+                self.relatedTvShows = result as? [TraktTvShow]
+                
+                resolve(result!)
             }).catch(execute: { error in
                 reject(error)
             })
@@ -148,13 +154,18 @@ extension TvShowDataSource: UITableViewDataSource {
                 
                 return detailCell
                 
-            case 1:
+            case 2:
                 
                 let relatedShowsCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowRelatedShowsTableViewCell.self), for: indexPath) as! TvShowRelatedShowsTableViewCell
                 
+                relatedShowsCell.relatedItems = relatedTvShows
+                relatedShowsCell.onRelatedTvShowButtonPress = { (tvShow, image) in
+                    self.delegate?.tvShowDataSource(dataSource: self, didSelectRelatedTvShow: tvShow, image: image)
+                }
+                
                 return relatedShowsCell
                 
-            case 2:
+            case 1:
                 
                 let overviewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: TvShowOverviewTableViewCell.self), for: indexPath) as! TvShowOverviewTableViewCell
 

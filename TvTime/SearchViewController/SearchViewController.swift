@@ -10,11 +10,18 @@ import UIKit
 
 class SearchViewController: UIViewController {
     
-    lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        return tableView
+        return collectionView
+    }()
+    
+    lazy var screenTapGestureRecognizer: UITapGestureRecognizer = {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onScreenTap))
+        
+        return tapGestureRecognizer
     }()
     
     let searchItemsDataSource = SearchItemsDataSource()
@@ -37,47 +44,40 @@ class SearchViewController: UIViewController {
         searchBarTextField?.attributedPlaceholder = NSAttributedString(string: "Search Tv shows ...", attributes: [NSForegroundColorAttributeName: UIColor.darkGray])
         navigationItem.titleView = searchBar
         
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
         
-        tableView.backgroundColor = UIColor.black
+        collectionView.pinEdgesToSuperview(margin: 8)
+        collectionView.register(FeedItemCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: FeedItemCollectionViewCell.self))
         
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44.0
-        tableView.allowsSelection = false
-        tableView.separatorStyle = .none
+        let collectionViewLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        collectionViewLayout.estimatedItemSize = CGSize(width: 40, height: 40)
+        collectionViewLayout.minimumLineSpacing = 8
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
-        
-        tableView.pinLeadingToSuperview(margin: 8)
-        tableView.pinTrailingToSuperview(margin: 8)
-        tableView.pinTopToSuperview()
-        tableView.pinBottomToSuperview(margin: 8)
-        
-        tableView.dataSource = searchItemsDataSource
-        tableView.reloadData()
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onScreenTap))
-        view.addGestureRecognizer(tapGestureRecognizer)
+        collectionView.dataSource = searchItemsDataSource
+        collectionView.delegate = self
+        collectionView.isPrefetchingEnabled = false
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let searchBar = navigationItem.titleView
-        let searchBarTextField = searchBar?.value(forKey: "searchField") as? UITextField
-        searchBarTextField?.text = ""
+        //let searchBar = navigationItem.titleView
+        //let searchBarTextField = searchBar?.value(forKey: "searchField") as? UITextField
+        //searchBarTextField?.text = ""
         
-        searchItemsDataSource.clear()
-        tableView.reloadData()
+        //searchItemsDataSource.clear()
+        //collectionView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let searchBar = navigationItem.titleView
-        let searchBarTextField = searchBar?.value(forKey: "searchField") as? UITextField
-        searchBarTextField?.becomeFirstResponder()
+       // let searchBar = navigationItem.titleView
+       // let searchBarTextField = searchBar?.value(forKey: "searchField") as? UITextField
+       // searchBarTextField?.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,7 +107,17 @@ class SearchViewController: UIViewController {
 
 }
 
+// MARK: - UISearchBarDelegate
+
 extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        view.addGestureRecognizer(screenTapGestureRecognizer)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        view.removeGestureRecognizer(screenTapGestureRecognizer)
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
@@ -117,8 +127,24 @@ extension SearchViewController: UISearchBarDelegate {
         
         searchItemsDataSource.prepare(query: text, page: 1)
             .then(execute: { (result) -> Void in
-                self.tableView.reloadData()
+                self.collectionView.reloadData()
         })
         searchBar.resignFirstResponder()
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension SearchViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let tvShow = searchItemsDataSource.itemAtIndexPath(indexPath: indexPath) else {
+            return
+        }
+        
+        let tvShowViewController = TvShowViewController()
+        tvShowViewController.tvShow = tvShow
+        
+        navigationController?.pushViewController(tvShowViewController, animated: true)
     }
 }

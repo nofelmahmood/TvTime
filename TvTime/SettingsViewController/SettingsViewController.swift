@@ -10,6 +10,13 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +26,10 @@ class SettingsViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.black
         navigationController?.navigationBar.tintColor = Color.silver
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: Color.silver]
+        
+        
+        tableView.allowsSelection = false
+        
     }
 
     override func didReceiveMemoryWarning() {

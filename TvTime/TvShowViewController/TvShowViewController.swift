@@ -72,6 +72,8 @@ class TvShowViewController: UIViewController {
         tableView.dataSource = tvShowDataSource
         tableView.delegate = tvShowDataSource
         
+        tvShowDataSource.delegate = self
+        
         tvShowDataSource.prepare(selectedTvShow: tvShow, posterImage: itemImage).always {
             self.tableView.reloadData()
         }
@@ -96,4 +98,22 @@ class TvShowViewController: UIViewController {
     }
     */
 
+}
+
+extension TvShowViewController: TvShowDataSourceDelegate {
+    
+    func tvShowDataSource(dataSource: TvShowDataSource, didSelectEpisode: TraktEpisode) {
+        
+    }
+    
+    func tvShowDataSource(dataSource: TvShowDataSource, didSelectRelatedTvShow tvShow: TraktTvShow, image: UIImage?) {
+        
+        let tvShowViewController = TvShowViewController()
+        tvShowViewController.tvShow = tvShow
+        tvShowViewController.itemImage = image
+        tvShowViewController.hidesBottomBarWhenPushed = true
+        
+        navigationController?.pushViewController(tvShowViewController, animated: true)
+        
+    }
 }

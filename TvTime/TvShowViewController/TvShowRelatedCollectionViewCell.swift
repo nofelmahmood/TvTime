@@ -7,26 +7,34 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class TvShowRelatedCollectionViewCell: UICollectionViewCell {
     
-    lazy var tvShowImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+    lazy var tvShowButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
         
-        return imageView
+        button.addTarget(self, action: #selector(onTvShowButtonPress), for: .touchUpInside)
+        
+        return button
     }()
+    
+    var onButtonPress: ((_ image: UIImage?) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let imageViewWidth: CGFloat = 92
-        let imageViewHeight: CGFloat = 125
+        let imageViewWidth: CGFloat = 128.8
+        let imageViewHeight: CGFloat = 175
         
-        contentView.addSubview(tvShowImageView)
+        contentView.addSubview(tvShowButton)
         
-        tvShowImageView.widthAnchor.constraint(equalToConstant: imageViewWidth).isActive = true
-        tvShowImageView.heightAnchor.constraint(equalToConstant: imageViewHeight).isActive = true
+        tvShowButton.imageView?.contentMode = .scaleAspectFit
+        
+        tvShowButton.pinEdgesToSuperview(margin: 4)
+        tvShowButton.widthAnchor.constraint(equalToConstant: imageViewWidth).isActive = true
+        tvShowButton.heightAnchor.constraint(equalToConstant: imageViewHeight).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,11 +43,14 @@ class TvShowRelatedCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Helpers
     
-    func setTvShow(tvShow: TvShow?) {
-        
-        guard let tvShow = tvShow else {
-            return
-        }
-        
+    func setImage(url: URL) {
+        tvShowButton.imageView?.image = nil
+        tvShowButton.af_setImage(for: .normal, url: url)
     }
+    
+    func onTvShowButtonPress() {
+        let image = tvShowButton.imageView?.image
+        onButtonPress?(image)
+    }
+    
 }

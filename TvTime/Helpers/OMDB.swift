@@ -9,32 +9,45 @@
 import UIKit
 import Alamofire
 import PromiseKit
+import Moya
 
 class OMDB {
     
+    func provider() -> MoyaProvider<OMDBService> {
+        
+        let endpointClosure = { (target: OMDBService) -> Endpoint<OMDBService> in
+            let defaultEndpoint = MoyaProvider.defaultEndpointMapping(for: target)
+            let headers = ["Content-Type": "application/json", "trakt-api-version": "2", "trakt-api-key": API.traktClientID]
+            
+            return defaultEndpoint.adding(newHTTPHeaderFields: headers)
+        }
+        
+        return MoyaProvider<OMDBService>(endpointClosure: endpointClosure)
+    }
+    
     func getTvShow(id: String) -> AnyPromise {
         
-        let url = "\(APIEndPoint.imdb)?i=\(id)"
+        let provider = self.provider()
         
         let promise = Promise<IMDBTvShow>(resolvers: { resolve, reject in
             
-            Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: { response in
-                
-                if response.result.isSuccess {
+            provider.request(.tvShow(id: id), completion: { result in
+                switch result {
+                case let .success(moyaResponse):
+                    let data = moyaResponse.data
+                    let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as! [String: AnyObject]
                     
-                    let json = response.result.value as! [String: AnyObject]
-                    let tvShow = try? IMDBTvShow.decode(json)
-                    
-                    if let tvShow = tvShow {
+                    if let json = json, let tvShow = try? IMDBTvShow.decode(json) {
                         resolve(tvShow)
                     } else {
-                        let error = NSError(domain: "com.error.notfound", code: 0, userInfo: nil)
+                        let error = NSError(domain: "com.api.error", code: 0, userInfo: nil)
                         reject(error)
                     }
                     
-                } else {
-                    reject(response.error!)
+                case let .failure(error):
+                    reject(error)
                 }
+                
             })
         })
         

@@ -9,18 +9,17 @@
 import UIKit
 import Moya
 
-
 enum TraktService {
     case tvShows(showsType: String, extendedInfo: String?, page: Int, limit: Int)
     case seasons(slug: String, extendedInfo: String)
     case episode(slug: String, seasonNumber: Int, episodeNumber: Int, extendedInfo: String)
     case relatedTvShows(slug: String, extendedInfo: String?)
-    case posterURL(imdbID: String)
+    case searchTvShows(query: String, extendedInfo: String?)
 }
 
 extension TraktService: TargetType {
     var baseURL: URL {
-        let string = "https://api.trakt.tv/shows"
+        let string = "https://api.trakt.tv"
         
         return URL(string: string)!
     }
@@ -30,16 +29,19 @@ extension TraktService: TargetType {
         switch self {
             
         case .tvShows(let showsType, _, _, _):
-            return "/\(showsType)"
+            return "/shows/\(showsType)"
             
         case .seasons(let slug, _):
-            return "\(slug)/seasons"
+            return "/shows/\(slug)/seasons"
             
         case .episode(let slug, let seasonNumber, let episodeNumber, _):
-            return "\(slug)/seasons/\(seasonNumber)/episodes/\(episodeNumber)"
+            return "/shows/\(slug)/seasons/\(seasonNumber)/episodes/\(episodeNumber)"
             
         case .relatedTvShows(let slug, _):
-            return "\(slug)/related"
+            return "/shows/\(slug)/related"
+            
+        case .searchTvShows(_, _):
+            return "/search/show"
             
         default:
             return ""
@@ -48,7 +50,7 @@ extension TraktService: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .tvShows, .seasons, .episode, .relatedTvShows:
+        case .tvShows, .seasons, .episode, .relatedTvShows, .searchTvShows:
             return .get
         default:
             return .get
@@ -76,16 +78,14 @@ extension TraktService: TargetType {
             }
             return ["extended": extendedInfo]
             
+        case .searchTvShows(let query, let extendedInfo):
+            guard let extendedInfo = extendedInfo else {
+                return ["query": query]
+            }
+            return ["query": query, "extended": extendedInfo]
+            
         default:
             return nil
-        }
-    }
-    
-    var headers: [String: Any]? {
-        switch self {
-        default:
-            return ["Content-Type": "application/json", "trakt-api-version": "2", "trakt-api-key": API.traktClientID]
-            
         }
     }
     

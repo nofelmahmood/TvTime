@@ -23,7 +23,7 @@ class TvShowOverviewTableViewCell: UITableViewCell {
     lazy var overviewLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Font.name, size: 15)
+        label.font = UIFont(name: Font.name, size: 16)
         label.textColor = Color.silver
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
