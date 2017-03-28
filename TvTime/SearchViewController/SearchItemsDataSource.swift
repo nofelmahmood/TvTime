@@ -37,6 +37,7 @@ class SearchItemsDataSource: NSObject {
     
     func clear() {
         items?.removeAll()
+        items = nil
     }
     
     func itemAtIndexPath(indexPath: IndexPath) -> TraktTvShow? {
