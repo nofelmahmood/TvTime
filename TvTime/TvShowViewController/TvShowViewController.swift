@@ -24,6 +24,13 @@ class TvShowViewController: UIViewController {
         return imageView
     }()
     
+    lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return activityIndicatorView
+    }()
+    
     var itemImage: UIImage?
     var tvShow: TraktTvShow?
     
@@ -74,8 +81,22 @@ class TvShowViewController: UIViewController {
         
         tvShowDataSource.delegate = self
         
+        view.addSubview(activityIndicatorView)
+        
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.color = UIColor.white
+        activityIndicatorView.centerVertically()
+        activityIndicatorView.centerHorizontally()
+        
+        tableView.alpha = 0
+        activityIndicatorView.startAnimating()
         tvShowDataSource.prepare(selectedTvShow: tvShow, posterImage: itemImage).always {
             self.tableView.reloadData()
+            self.activityIndicatorView.stopAnimating()
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.tableView.alpha = 1
+            })
         }
         
         navigationItem.title = tvShow?.title
