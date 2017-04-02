@@ -17,6 +17,23 @@ class FeedItemCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    lazy var watchToggleButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.borderWidth = 1
+        //button.layer.borderColor = Color.silver.cgColor
+        button.backgroundColor = Color.silver
+        button.setTitleColor(Color.silver, for: .normal)
+        
+        let font = UIFont(name: Font.name, size: 16)!
+        let attributedText = NSAttributedString(string: "Watch", attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName: Color.cellBackground])
+        button.setAttributedTitle(attributedText, for: .normal)
+        
+        button.addTarget(self, action: #selector(onWatchButtonPress), for: .touchUpInside)
+        
+        return button
+    }()
+    
     lazy var nameAndFavoriteBtnSV: UIStackView = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -31,17 +48,17 @@ class FeedItemCollectionViewCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 4
+        stackView.spacing = 6
         
         return stackView
     }()
     
     lazy var stackView: UIStackView = {
-        let sV = UIStackView(arrangedSubviews: [self.itemImageView, self.nameAndFavoriteBtnSV])
+        let sV = UIStackView(arrangedSubviews: [self.itemImageView, self.watchToggleButton])
         sV.translatesAutoresizingMaskIntoConstraints = false
         sV.axis = .vertical
-        sV.distribution = .fillProportionally
-        sV.spacing = 8
+        sV.distribution = .fill
+        sV.spacing = 10
         
         return sV
     }()
@@ -78,6 +95,9 @@ class FeedItemCollectionViewCell: UICollectionViewCell {
         
         itemImageView.widthAnchor.constraint(equalToConstant: itemImageWidth).isActive = true
         itemImageView.heightAnchor.constraint(equalToConstant: itemImageHeight).isActive = true
+        
+        watchToggleButton.heightAnchor.constraint(equalToConstant: 25).isActive = true
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,5 +115,11 @@ class FeedItemCollectionViewCell: UICollectionViewCell {
         nameLabel.text = tvShow.title
         
         itemImageView.image = nil
+    }
+    
+    // MARK: - User Interaction
+    
+    func onWatchButtonPress() {
+        
     }
 }
