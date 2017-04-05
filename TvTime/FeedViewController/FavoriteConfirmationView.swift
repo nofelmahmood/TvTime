@@ -61,10 +61,7 @@ class FavoriteConfirmationView: UIView {
         
         addSubview(stackView)
         
-        stackView.pinTopToSuperview(margin: 16)
-        stackView.pinBottomToSuperview(margin: 16)
-        stackView.pinLeadingToSuperview(margin: 16)
-        stackView.pinTrailingToSuperview(margin: 16)
+        stackView.pinEdgesToSuperview(margin: 16)
         
     }
     

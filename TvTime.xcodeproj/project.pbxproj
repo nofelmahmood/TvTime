@@ -126,7 +126,7 @@
 		3EFCD9381E7577D400364284 /* UIImage+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Helpers.swift"; path = "Helpers/UIImage+Helpers.swift"; sourceTree = "<group>"; };
 		3EFCD93A1E7583B300364284 /* Credit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Credit.swift; path = Models/Credit.swift; sourceTree = "<group>"; };
 		3EFCD93E1E75942000364284 /* Season.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Season.swift; path = Models/Season.swift; sourceTree = "<group>"; };
-		3EFCD9401E759DBB00364284 /* TvShowCreditTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowCreditTableViewCell.swift; path = TvShowViewController/TvShowCreditTableViewCell.swift; sourceTree = "<group>"; };
+		3EFCD9401E759DBB00364284 /* TvShowCreditTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; name = TvShowCreditTableViewCell.swift; path = TvShowViewController/TvShowCreditTableViewCell.swift; sourceTree = "<group>"; tabWidth = 4; };
 		3EFCD9421E75D7BD00364284 /* TvShowHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowHeaderFooterView.swift; path = TvShowViewController/TvShowHeaderFooterView.swift; sourceTree = "<group>"; };
 		3EFCD9441E75DA9A00364284 /* TvShowSeasonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TvShowSeasonTableViewCell.swift; path = TvShowViewController/TvShowSeasonTableViewCell.swift; sourceTree = "<group>"; };
 		3EFCD9471E75E81400364284 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = SearchViewController/SearchViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +211,7 @@
 				1249E6D2E174DCF63AAFEAFD /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		3E57B9F71E70163F004A4CD3 /* Products */ = {
 			isa = PBXGroup;
