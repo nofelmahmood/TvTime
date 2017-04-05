@@ -82,7 +82,6 @@ class TvShowRelatedShowsTableViewCell: UITableViewCell {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         
-        //collectionView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: 200).isActive = true
 
     }
