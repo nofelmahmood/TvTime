@@ -19,7 +19,7 @@ class ItemTableViewCell: UITableViewCell {
     }()
     
     lazy var stackView: UIStackView = {
-        let sV = UIStackView(arrangedSubviews: [self.itemImageView, self.detailStackView])
+        let sV = UIStackView(arrangedSubviews: [self.itemImageView, self.watchToggleButton])
         sV.translatesAutoresizingMaskIntoConstraints = false
         sV.axis = .horizontal
         sV.distribution = .fillProportionally
@@ -74,6 +74,17 @@ class ItemTableViewCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(onFavoriteButtonPress), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    lazy var watchToggleButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.borderColor = Color.silver.cgColor
+        button.layer.borderWidth = 1
+        button.setTitleColor(Color.silver, for: .normal)
+        button.setTitle("Watch", for: .normal)
         
         return button
     }()
