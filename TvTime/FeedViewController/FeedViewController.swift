@@ -19,7 +19,7 @@ class FeedViewController: UIViewController {
     }()
     
     lazy var activityIndicatorView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .white)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
